@@ -11,7 +11,7 @@ When creating a new Spago project, you can use
 to generate this file without the comments in this block.
 -}
 { name = "framer-motion"
-, repository = "git@github.com:i-am-the-slime/purescript-framer-motion.git"
+, repository = "https://github.com/i-am-the-slime/purescript-framer-motion.git"
 , license = "MIT"
 , dependencies =
   [ "aff"
