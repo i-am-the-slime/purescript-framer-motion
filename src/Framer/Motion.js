@@ -1,8 +1,8 @@
-const framerMotion = require("framer-motion")
+import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 
-exports.animatePresenceImpl = framerMotion.AnimatePresence
+export const animatePresenceImpl = AnimatePresence
 
-exports.animateSharedLayoutImpl = framerMotion.AnimateSharedLayout
+export const animateSharedLayoutImpl = AnimateSharedLayout
 
-exports.startImpl = (args) => (controls) => controls.start(args)
-exports.stopImpl = (controls) => controls.stop
+export function startImpl(args) { return (controls) => controls.start(args)}
+export function stopImpl(controls) { return controls.stop}
