@@ -1,5 +1,6 @@
 module Framer.Motion.MotionComponent where
 
+import Prelude
 import Effect (Effect)
 import Effect.Unsafe (unsafePerformEffect)
 import Framer.Motion.Types (MotionProps)
