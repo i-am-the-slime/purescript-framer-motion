@@ -35,15 +35,15 @@ export const mkMotionComponentImpl = (str) => () => {
 
 export const divImpl = motion.div
 export const spanImpl = motion.span
-export const htmlImpl = motion.html
+// export const htmlImpl = motion.html
 export const buttonImpl = motion.button
 export const liImpl = motion.li
-export const ulImpl = motion.ul
-export const olImpl = motion.ol
+// export const ulImpl = motion.ul
+// export const olImpl = motion.ol
 export const inputImpl = motion.input
 export const svgImpl = motion.svg
 export const pathImpl = motion.path
-export const cImpl = motion.c
+// export const cImpl = motion.c
 
 export function custom(component) {
   return () => {

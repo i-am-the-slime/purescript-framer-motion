@@ -2,7 +2,6 @@ module Framer.Motion
   ( motion
   , withMotion
   , animatePresence
-  , animateSharedLayout
   , module Framer.Motion.Types
   , module Framer.Motion.MotionComponent
   , startAnimation
@@ -42,14 +41,6 @@ animatePresence ∷
   Union attrs attrs_ AnimatePresenceProps =>
   ReactComponent { | attrs }
 animatePresence = animatePresenceImpl
-
-foreign import animateSharedLayoutImpl ∷ ∀ attrs. ReactComponent { | attrs }
-
-animateSharedLayout ∷
-  ∀ attrs attrs_.
-  Union attrs attrs_ AnimateSharedLayoutProps =>
-  ReactComponent { | attrs }
-animateSharedLayout = animateSharedLayoutImpl
 
 foreign import startImpl ∷ ∀ arg. arg -> AnimationControls -> Promise Unit
 
