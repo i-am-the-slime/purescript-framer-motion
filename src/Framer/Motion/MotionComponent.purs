@@ -634,8 +634,10 @@ span = spanImpl
 -- title ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_title) => ReactComponent { | attrs }
 -- title = titleImpl
 
--- trImpl :: forall a. ReactComponent {|a}
--- trImpl = unsafePerformEffect $ mkMotionComponentImpl "tr"
+foreign import trImpl :: forall a. ReactComponent {|a}
+
+tr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tr) => ReactComponent { | attrs }
+tr = trImpl
 
 -- tr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tr) => ReactComponent { | attrs }
 -- tr = trImpl

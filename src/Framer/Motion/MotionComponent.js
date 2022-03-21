@@ -38,6 +38,7 @@ export const spanImpl = motion.span
 // export const htmlImpl = motion.html
 export const buttonImpl = motion.button
 export const liImpl = motion.li
+export const trImpl = motion.tr
 // export const ulImpl = motion.ul
 // export const olImpl = motion.ol
 export const inputImpl = motion.input
