@@ -45,6 +45,7 @@ export const inputImpl = motion.input
 export const svgImpl = motion.svg
 export const pathImpl = motion.path
 // export const cImpl = motion.c
+export const gImpl = motion.g
 
 export function custom(component) {
   return () => {

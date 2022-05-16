@@ -880,11 +880,10 @@ tr = trImpl
 -- foreignObject ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_foreignObject) => ReactComponent { | attrs }
 -- foreignObject = foreignObjectImpl
 
--- gImpl :: forall a. ReactComponent {|a}
--- gImpl = unsafePerformEffect $ mkMotionComponentImpl "g"
+foreign import gImpl ∷ ∀ props. ReactComponent { | props }
 
--- g ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_g) => ReactComponent { | attrs }
--- g = gImpl
+g ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_g) => ReactComponent { | attrs }
+g = gImpl
 
 -- imageImpl :: forall a. ReactComponent {|a}
 -- imageImpl = unsafePerformEffect $ mkMotionComponentImpl "image"
@@ -1009,4 +1008,3 @@ svg = svgImpl
 
 -- view ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_view) => ReactComponent { | attrs }
 -- view = viewImpl
-
