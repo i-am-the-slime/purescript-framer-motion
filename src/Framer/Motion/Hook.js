@@ -1,6 +1,6 @@
-const framerMotion = require("framer-motion")
+import { useViewportScroll, useTransform, useSpring, useAnimation } from "framer-motion"
 
-exports.useViewportScrollImpl = framerMotion.useViewportScroll
-exports.useTransformImpl = framerMotion.useTransform
-exports.useSpringImpl = framerMotion.useSpring
-exports.useAnimationImpl = framerMotion.useAnimation
+export const useViewportScrollImpl = useViewportScroll
+export const useTransformImpl = useTransform
+export const useSpringImpl = useSpring
+export const useAnimationImpl = useAnimation

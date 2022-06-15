@@ -1,0 +1,31 @@
+{
+  "name": "purescript-framer-motion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "spago test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-am-the-slime/purescript-framer-motion.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/i-am-the-slime/purescript-framer-motion/issues"
+  },
+  "homepage": "https://github.com/i-am-the-slime/purescript-framer-motion#readme",
+  "dependencies": {
+    "framer-motion": "^6.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "purescript": "^0.14.5",
+    "spago": "^0.20.3"
+  }
+}

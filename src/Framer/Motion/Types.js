@@ -1,4 +1,2 @@
-const framerMotion = require("framer-motion")
-
-exports.infinity = Infinity
+export const infinity = Infinity
 

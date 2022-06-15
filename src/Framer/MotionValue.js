@@ -1,12 +1,12 @@
-const framerMotion = require("framer-motion")
+import { useMotionValue, animate } from "framer-motion"
 
-exports.useMotionValueImpl = framerMotion.useMotionValue
-exports.get = mv => () => { return mv.get() }
-exports.setImpl = v => render => mv => () => {
+export const useMotionValueImpl = useMotionValue
+export function get(mv) { return () => { return mv.get() }}
+export function setImpl(v) { return render => mv => () => {
     mv.set(v, render)
-}
-exports.isAnimating = mv => () => { return mv.isAnimating() }
-exports.stop = mv => () => { return mv.stop() }
-exports.onChangeImpl = callback => mv => { return () => mv.onChange(callback); }
-exports.animateImpl = framerMotion.animate
-exports.stopAnimation = (playbackControls) => playbackControls.stop
+}}
+export function isAnimating(mv) { return () => { return mv.isAnimating() }}
+export function stop(mv) { return () => { return mv.stop() }}
+export function onChangeImpl(callback) { return mv => { return () => mv.onChange(callback); }}
+export const animateImpl = animate
+export function stopAnimation(playbackControls) { return playbackControls.stop}
