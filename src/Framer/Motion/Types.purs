@@ -240,7 +240,10 @@ whileHover ∷ ∀ c. Castable c WhileHover => c -> WhileHover
 whileHover = cast
 
 type WhileDrag =
-  (EffectFn2 MouseEvent EventInfo Unit |+| Undefined)
+  ( EffectFn2 MouseEvent EventInfo Unit
+      |+| EffectFn2 MouseEvent EventInfo CSS
+      |+| Undefined
+  )
 
 whileDrag ∷ ∀ c. Castable c WhileDrag => c -> WhileDrag
 whileDrag = cast
