@@ -56,10 +56,10 @@ type MotionPropsF f r =
   , transition ∷ f Transition
   , variants ∷ f Variants
   , whileHover ∷ f WhileHover
+  , whileDrag ∷ f WhileDrag
   , whileTap ∷ f WhileTap
   | r
   )
-
 
 type Drag = Boolean |+| String |+| Undefined
 
@@ -72,14 +72,12 @@ type Transition =
 
 newtype VariantLabel = VariantLabel String
 
-data Target
-  = Target
+data Target = Target
 
 type Exit =
   CSS |+| VariantLabel |+| Array VariantLabel |+| Undefined
 
 foreign import data AnimationControls ∷ Type
-
 
 prop ∷ ∀ a b. Castable a b => a -> b
 prop = cast
@@ -241,6 +239,12 @@ type WhileHover =
 whileHover ∷ ∀ c. Castable c WhileHover => c -> WhileHover
 whileHover = cast
 
+type WhileDrag =
+  (EffectFn2 MouseEvent EventInfo Unit |+| Undefined)
+
+whileDrag ∷ ∀ c. Castable c WhileDrag => c -> WhileDrag
+whileDrag = cast
+
 type OnLayoutAnimationComplete =
   (Effect Unit |+| Undefined)
 
@@ -338,11 +342,11 @@ variantsFromObject = cast <<< (unsafeCoerce ∷ _ -> CSS)
 layout ∷ ∀ a. Castable a Layout => a -> Layout
 layout = cast
 
-data MakeVariantLabel
-  = MakeVariantLabel
+data MakeVariantLabel = MakeVariantLabel
 
 instance makeVariantLabels' ∷
-  (IsSymbol sym) =>
+  ( IsSymbol sym
+  ) =>
   MappingWithIndex MakeVariantLabel (Proxy sym) a VariantLabel where
   mappingWithIndex MakeVariantLabel prop' _ = VariantLabel (reflectSymbol prop')
 
