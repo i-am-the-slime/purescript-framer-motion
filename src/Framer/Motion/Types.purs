@@ -297,6 +297,9 @@ onDragEnd = cast <<< toEffectFn
 onDrag ∷ (Event -> PanInfo -> Effect Unit) -> OnDrag
 onDrag fn2 = cast (mkEffectFn2 fn2)
 
+pan ∷ ∀ a. Castable a Pan => a -> Pan
+pan = cast
+
 onPanStart ∷ (Event -> PanInfo -> Effect Unit) -> OnPanStart
 onPanStart = cast <<< toEffectFn
 
