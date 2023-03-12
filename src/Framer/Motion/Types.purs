@@ -42,6 +42,7 @@ type MotionPropsF f r =
   , onDrag ∷ f OnDrag
   , onDragEnd ∷ f OnDragEnd
   , onDragStart ∷ f OnDragStart
+  , pan :: f Pan
   , onPan ∷ f OnPan
   , onPanEnd ∷ f OnPanEnd
   , onPanStart ∷ f OnPanStart
@@ -62,6 +63,8 @@ type MotionPropsF f r =
   )
 
 type Drag = Boolean |+| String |+| Undefined
+
+type Pan = Boolean |+| String |+| Undefined
 
 type MotionProps :: Row Type -> Row Type
 type MotionProps r =
