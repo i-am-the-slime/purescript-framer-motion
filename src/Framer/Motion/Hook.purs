@@ -4,6 +4,7 @@ module Framer.Motion.Hook
   , UseAnimation
   , UseViewportScroll
   , useTransform
+  , useTransformMap
   , useSpringWithMotionValue
   , useSpringWithNumber
   , UseSpring
@@ -94,6 +95,17 @@ useTransform motionValue mapping options =
       (maybeToUor $ transformOptionsToTransformOptionsImpl <$> options)
   where
   numbers /\ as = TwoOrMore.toArray mapping # Array.unzip
+
+foreign import useTransformMapImpl ∷
+  ∀ a b.
+  EffectFn2
+    (MotionValue a)
+    (a -> b)
+    (MotionValue b)
+
+useTransformMap :: forall a b. MotionValue a -> (a -> b) -> Hook (UseTransform a) (MotionValue b)
+useTransformMap mv fn = unsafeHook do
+  runEffectFn2 useTransformMapImpl mv fn
 
 -- UseSpring
 type SpringProps =
