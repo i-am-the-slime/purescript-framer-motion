@@ -12,6 +12,8 @@ foreign import data UseMotionValue ∷ Type -> Type -> Type
 
 foreign import newMotionValue :: ∀ a. a -> Effect (MotionValue a)
 
+foreign import destroy :: ∀ a. MotionValue a -> Effect Unit
+
 foreign import useMotionValueImpl ∷ ∀ a. EffectFn1 a (MotionValue a)
 
 foreign import get ∷ ∀ a. (MotionValue a) -> Effect a

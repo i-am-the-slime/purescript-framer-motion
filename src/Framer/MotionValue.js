@@ -1,6 +1,7 @@
 import { useMotionValue, animate, MotionValue } from "framer-motion"
 
 export const newMotionValue = (v) => () => new MotionValue(v)
+export const destroy = (mv) => () => mv.destroy()
 export const useMotionValueImpl = useMotionValue
 export function get(mv) { return () => { return mv.get() }}
 export function setImpl(v) { return render => mv => () => {
