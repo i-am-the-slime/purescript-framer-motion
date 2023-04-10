@@ -1,4 +1,4 @@
-import { useMotionValue, animate, MotionValue } from "framer-motion"
+import { useMotionValue, animate, transform, MotionValue } from "framer-motion"
 
 export const newMotionValue = (v) => () => new MotionValue(v)
 export const destroy = (mv) => () => mv.destroy()
@@ -9,6 +9,9 @@ export function setImpl(v) { return render => mv => () => {
 }}
 export function isAnimating(mv) { return () => { return mv.isAnimating() }}
 export function stop(mv) { return () => { return mv.stop() }}
-export function onChangeImpl(callback) { return mv => { return () => mv.onChange(callback); }}
+export const onChange = callback => mv => () => mv.on("change", e => callback(e)())
+export const onAnimationStart = callback => mv => () => mv.on("animationStart", e => callback(e)())
+export const onAnimationCancel = callback => mv => () => mv.on("animationCancel", e => callback(e)())
+export const onAnimationComplete = callback => mv => () => mv.on("animationComplete", e => callback(e)())
 export const animateImpl = animate
 export function stopAnimation(playbackControls) { return playbackControls.stop}

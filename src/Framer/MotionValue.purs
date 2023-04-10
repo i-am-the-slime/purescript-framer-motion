@@ -33,10 +33,13 @@ foreign import isAnimating ∷ ∀ a. MotionValue a -> Effect Boolean
 
 foreign import stop ∷ ∀ a. MotionValue a -> Effect Unit
 
-foreign import onChangeImpl ∷ ∀ a. EffectFn1 a Unit -> MotionValue a -> Effect (Effect Unit)
+foreign import onChange ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
 
-onChange ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
-onChange = mkEffectFn1 >>> onChangeImpl
+foreign import onAnimationComplete ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
+
+foreign import onAnimationStart ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
+
+foreign import onAnimationCancel ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
 
 useMotionValue ∷ ∀ a. a -> Hook (UseMotionValue a) (MotionValue a)
 useMotionValue = unsafeHook <<< runEffectFn1 useMotionValueImpl
