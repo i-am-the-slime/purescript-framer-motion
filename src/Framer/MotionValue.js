@@ -1,5 +1,6 @@
-import { useMotionValue, animate } from "framer-motion"
+import { useMotionValue, animate, MotionValue } from "framer-motion"
 
+export const newMotionValue = (v) => () => new MotionValue(v)
 export const useMotionValueImpl = useMotionValue
 export function get(mv) { return () => { return mv.get() }}
 export function setImpl(v) { return render => mv => () => {

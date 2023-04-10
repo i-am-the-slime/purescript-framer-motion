@@ -10,6 +10,8 @@ foreign import data MotionValue ∷ Type -> Type
 
 foreign import data UseMotionValue ∷ Type -> Type -> Type
 
+foreign import newMotionValue :: ∀ a. a -> Effect (MotionValue a)
+
 foreign import useMotionValueImpl ∷ ∀ a. EffectFn1 a (MotionValue a)
 
 foreign import get ∷ ∀ a. (MotionValue a) -> Effect a
@@ -18,6 +20,9 @@ foreign import setImpl ∷ ∀ a. a -> Boolean -> (MotionValue a) -> Effect Unit
 
 setButDoNotRender ∷ ∀ a. a -> MotionValue a -> Effect Unit
 setButDoNotRender v = setImpl v false
+
+jump ∷ ∀ a. a -> MotionValue a -> Effect Unit
+jump = setButDoNotRender
 
 set ∷ ∀ a. a -> MotionValue a -> Effect Unit
 set v = setImpl v true
