@@ -42,18 +42,18 @@ animatePresence ∷
   ReactComponent { | attrs }
 animatePresence = animatePresenceImpl
 
-foreign import startImpl ∷ ∀ arg. arg -> AnimationControls -> Promise Unit
+foreign import startImpl ∷ ∀ arg. arg -> AnimationControls -> Effect (Promise Unit)
 
 foreign import stopImpl ∷ AnimationControls -> Effect Unit
 
 startAnimation ∷ CSS -> AnimationControls -> Aff Unit
-startAnimation arg controls = Promise.toAff (startImpl arg controls)
+startAnimation arg controls = Promise.toAffE (startImpl arg controls)
 
 startAnimationDynamic ∷ ∀ arg. (arg -> CSS) -> AnimationControls -> Aff Unit
-startAnimationDynamic arg controls = Promise.toAff (startImpl arg controls)
+startAnimationDynamic arg controls = Promise.toAffE (startImpl arg controls)
 
 startAnimationVariant ∷ VariantLabel -> AnimationControls -> Aff Unit
-startAnimationVariant arg controls = Promise.toAff (startImpl arg controls)
+startAnimationVariant arg controls = Promise.toAffE (startImpl arg controls)
 
 stopAnimation ∷ AnimationControls -> Effect Unit
 stopAnimation = stopImpl
