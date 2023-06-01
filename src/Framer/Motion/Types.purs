@@ -84,12 +84,6 @@ type Exit =
 
 foreign import data AnimationControls ∷ Type
 
-animationControlsStart :: AnimationControls -> VariantLabel -> Aff Unit
-animationControlsStart ac = runEffectFn1 (unsafeCoerce ac).start >>> toAffE
-
-animationControlsStartCSS :: AnimationControls -> CSS -> Aff Unit
-animationControlsStartCSS ac = runEffectFn1 (unsafeCoerce ac).start >>> toAffE
-
 prop ∷ ∀ a b. Castable a b => a -> b
 prop = cast
 
