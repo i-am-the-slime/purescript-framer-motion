@@ -158,3 +158,5 @@ foreign import useTransformMapEImpl ∷ ∀ a b. EffectFn2 (MotionValue a) (Effe
 
 useTransformMapE ∷ ∀ a b. (a → Effect b) → MotionValue a → Hook (UseTransform b) (MotionValue b)
 useTransformMapE fn val = unsafeHook $ runEffectFn2 useTransformMapEImpl val (mkEffectFn1 fn)
+
+foreign import useTransformEffect :: forall a. (Effect a) -> Hook (UseTransform a) (MotionValue a)

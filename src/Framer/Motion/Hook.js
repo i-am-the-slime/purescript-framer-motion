@@ -8,6 +8,7 @@ import {
 export const useViewportScrollImpl = useViewportScroll;
 export const useTransformImpl = useTransform;
 export const useTransformMapImpl = (value, fn) => useTransform(value, fn);
-export const useTransformMapEImpl = (value, fnE) => useTransform(value, fnE);
+export const useTransformMapEImpl = (value, fnE) => useTransform
+export const useTransformEffect = useTransform
 export const useSpringImpl = useSpring;
 export const useAnimationImpl = useAnimation;
