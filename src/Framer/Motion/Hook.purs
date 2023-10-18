@@ -156,5 +156,5 @@ useAnimation = unsafeHook useAnimationImpl
 
 foreign import useTransformMapEImpl ∷ ∀ a b. EffectFn2 (MotionValue a) (EffectFn1 a b) (MotionValue b)
 
-useTransformMapE ∷ ∀ a b hooks. (a → Effect b) → MotionValue a → Hook (UseTransform b) (MotionValue b)
+useTransformMapE ∷ ∀ a b. (a → Effect b) → MotionValue a → Hook (UseTransform b) (MotionValue b)
 useTransformMapE fn val = unsafeHook $ runEffectFn2 useTransformMapEImpl val (mkEffectFn1 fn)
