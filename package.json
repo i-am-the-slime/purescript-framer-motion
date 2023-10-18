@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/i-am-the-slime/purescript-framer-motion#readme",
   "dependencies": {
-    "framer-motion": "^6.2.0",
+    "framer-motion": "^10.16.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

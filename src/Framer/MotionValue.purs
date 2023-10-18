@@ -39,8 +39,6 @@ foreign import onAnimationComplete ∷ ∀ a. (a -> Effect Unit) -> MotionValue 
 
 foreign import onAnimationStart ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
 
-foreign import onAnimationCancel ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
-
 useMotionValue ∷ ∀ a. a -> Hook (UseMotionValue a) (MotionValue a)
 useMotionValue = unsafeHook <<< runEffectFn1 useMotionValueImpl
 

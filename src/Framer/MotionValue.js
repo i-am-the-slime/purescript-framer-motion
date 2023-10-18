@@ -9,9 +9,8 @@ export function setImpl(v) { return render => mv => () => {
 }}
 export function isAnimating(mv) { return () => { return mv.isAnimating() }}
 export function stop(mv) { return () => { return mv.stop() }}
-export const onChange = callback => mv => () => mv.on("change", e => callback(e)())
-export const onAnimationStart = callback => mv => () => mv.on("animationStart", e => callback(e)())
-export const onAnimationCancel = callback => mv => () => mv.on("animationCancel", e => callback(e)())
+export const onChange = callback => mv => () => mv.onChange(e => callback(e)())
+export const onAnimationStart = callback => mv => () => mv.onAnimationStart(callback(e)())
 export const onAnimationComplete = callback => mv => () => mv.on("animationComplete", e => callback(e)())
 export const animateImpl = animate
 export function stopAnimation(playbackControls) { return playbackControls.stop}
