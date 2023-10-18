@@ -239,7 +239,7 @@ onHoverEnd ∷ (MouseEvent -> EventInfo -> Effect Unit) -> OnHoverEnd
 onHoverEnd = cast <<< toEffectFn
 
 type WhileHover =
-  (EffectFn2 MouseEvent EventInfo Unit |+| Undefined)
+  (EffectFn2 MouseEvent EventInfo Unit |+| CSS |+| Undefined)
 
 whileHover ∷ ∀ c. Castable c WhileHover => c -> WhileHover
 whileHover = cast
