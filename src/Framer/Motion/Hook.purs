@@ -6,6 +6,7 @@ module Framer.Motion.Hook
   , useTransform
   , useTransformMap
   , useTransformMapE
+  , useTransformEffect
   , useSpringWithMotionValue
   , useSpringWithNumber
   , UseSpring
