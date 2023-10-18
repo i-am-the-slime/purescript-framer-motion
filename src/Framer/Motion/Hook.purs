@@ -24,7 +24,7 @@ import Data.Tuple.Nested ((/\), type (/\))
 import Data.TwoOrMore (TwoOrMore)
 import Data.TwoOrMore as TwoOrMore
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn4, mkEffectFn1, runEffectFn2, runEffectFn4)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn4, mkEffectFn1, runEffectFn1, runEffectFn2, runEffectFn4)
 import Framer.Motion (AnimationControls)
 import Literals.Undefined (Undefined, undefined)
 import MotionValue (MotionValue)
@@ -160,4 +160,7 @@ foreign import useTransformMapEImpl ∷ ∀ a b. EffectFn2 (MotionValue a) (Effe
 useTransformMapE ∷ ∀ a b. (a → Effect b) → MotionValue a → Hook (UseTransform b) (MotionValue b)
 useTransformMapE fn val = unsafeHook $ runEffectFn2 useTransformMapEImpl val (mkEffectFn1 fn)
 
-foreign import useTransformEffect :: forall a. (Effect a) -> Hook (UseTransform a) (MotionValue a)
+foreign import useTransformEffectImpl :: forall a. EffectFn1 (Effect a) (MotionValue a)
+
+useTransformEffect :: forall a. (Effect a) -> Hook (UseTransform a) (MotionValue a)
+useTransformEffect eff = unsafeHook $ runEffectFn1 useTransformEffectImpl eff

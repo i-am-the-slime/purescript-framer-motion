@@ -2,7 +2,7 @@ module MotionValue where
 
 import Prelude
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn3, mkEffectFn1, runEffectFn1, runEffectFn3)
+import Effect.Uncurried (EffectFn1, EffectFn3, runEffectFn1, runEffectFn3)
 import Framer.Motion.Types (AnimationPlaybackControls)
 import React.Basic.Hooks (Hook, unsafeHook)
 
