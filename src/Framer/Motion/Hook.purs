@@ -5,6 +5,7 @@ module Framer.Motion.Hook
   , UseViewportScroll
   , useTransform
   , useTransformMap
+  , useTransformMapE
   , useSpringWithMotionValue
   , useSpringWithNumber
   , UseSpring
@@ -22,7 +23,7 @@ import Data.Tuple.Nested ((/\), type (/\))
 import Data.TwoOrMore (TwoOrMore)
 import Data.TwoOrMore as TwoOrMore
 import Effect (Effect)
-import Effect.Uncurried (EffectFn2, EffectFn4, runEffectFn2, runEffectFn4)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn4, mkEffectFn1, runEffectFn2, runEffectFn4)
 import Framer.Motion (AnimationControls)
 import Literals.Undefined (Undefined, undefined)
 import MotionValue (MotionValue)
@@ -152,3 +153,8 @@ foreign import useAnimationImpl ∷ Effect AnimationControls
 
 useAnimation ∷ Hook UseAnimation AnimationControls
 useAnimation = unsafeHook useAnimationImpl
+
+foreign import useTransformMapEImpl ∷ ∀ a b. EffectFn2 (MotionValue a) (EffectFn1 a b) (MotionValue b)
+
+useTransformMapE ∷ ∀ a b hooks. (a → Effect b) → MotionValue a → Hook (UseTransform b) (MotionValue b)
+useTransformMapE fn val = unsafeHook $ runEffectFn2 useTransformMapEImpl val (mkEffectFn1 fn)
