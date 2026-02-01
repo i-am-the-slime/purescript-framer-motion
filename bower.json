@@ -1,7 +1,7 @@
 {
     "name": "purescript-framer-motion",
     "license": [
-        "MIT"
+        "MIT OR ISC"
     ],
     "repository": {
         "type": "git",

@@ -12,7 +12,7 @@ to generate this file without the comments in this block.
 -}
 { name = "react-motion"
 , repository = "https://github.com/i-am-the-slime/purescript-framer-motion.git"
-, license = "MIT"
+, license = "MIT OR ISC"
 , dependencies =
   [ "aff"
   , "aff-promise"
