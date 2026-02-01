@@ -5,7 +5,7 @@ import Prelude
 import Data.Nullable (Nullable)
 import Data.Symbol (class IsSymbol, reflectSymbol)
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2, mkEffectFn1, mkEffectFn2, runEffectFn1)
+import Effect.Uncurried (EffectFn1, EffectFn2, mkEffectFn1, mkEffectFn2)
 import Foreign (Foreign, unsafeToForeign)
 import Foreign.Object (Object)
 import Heterogeneous.Mapping (class HMapWithIndex, class MappingWithIndex, hmapWithIndex)
@@ -20,8 +20,6 @@ import Untagged.Union (type (|+|))
 import Web.DOM (Node)
 import Web.Event.Internal.Types (Event)
 import Web.UIEvent.MouseEvent (MouseEvent)
-import Effect.Aff (Aff)
-import Control.Promise (toAffE)
 
 type Id :: forall k. k -> k
 type Id a = a

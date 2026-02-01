@@ -1,4 +1,4 @@
-# purescript-motion
+# purescript-react-motion
 
 PureScript bindings for [Motion](https://motion.dev) (formerly Framer Motion) - a production-ready animation library for React.
 
@@ -6,7 +6,7 @@ PureScript bindings for [Motion](https://motion.dev) (formerly Framer Motion) - 
 
 ```bash
 # Install PureScript package
-spago install framer-motion
+spago install react-motion
 
 # Install npm dependencies
 npm install motion@^12.29.2 react@^18.2.0 react-dom@^18.2.0
