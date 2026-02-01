@@ -16,7 +16,7 @@
     "url": "git+https://github.com/i-am-the-slime/purescript-framer-motion.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/i-am-the-slime/purescript-framer-motion/issues"
   },
