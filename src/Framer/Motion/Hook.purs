@@ -15,11 +15,18 @@ module Framer.Motion.Hook
   , ViewportScrollValues
   , TransformOptions
   , Ease
+  , useInView
+  , UseInView
+  , InViewOptions
+  , useAnimate
+  , UseAnimate
+  , AnimateFunction
   ) where
 
 import Prelude
 import Data.Array as Array
 import Data.Maybe (Maybe(..))
+import Data.Nullable (Nullable)
 import Data.Tuple.Nested ((/\), type (/\))
 import Data.TwoOrMore (TwoOrMore)
 import Data.TwoOrMore as TwoOrMore
@@ -28,9 +35,11 @@ import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn4, mkEffectFn1, runEffect
 import Framer.Motion (AnimationControls)
 import Literals.Undefined (Undefined, undefined)
 import MotionValue (MotionValue)
-import React.Basic.Hooks (Hook, unsafeHook)
+import React.Basic.Hooks (Hook, Ref, unsafeHook)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr, maybeToUor)
+import Unsafe.Coerce (unsafeCoerce)
+import Web.DOM (Node)
 
 -- UseViewportScroll
 type ViewportScrollValues =
@@ -68,25 +77,25 @@ transformOptionsToTransformOptionsImpl ∷ ∀ a. TransformOptions a -> Transfor
 transformOptionsToTransformOptionsImpl { clamp, ease } =
   { clamp: maybeToUor clamp
   , ease:
-    case ease of
-      Just (EaseFn fn) -> cast fn
-      Just (EaseFns fns) -> cast fns
-      Nothing -> cast undefined
+      case ease of
+        Just (EaseFn fn) -> cast fn
+        Just (EaseFns fns) -> cast fns
+        Nothing -> cast undefined
   }
 
 foreign import data UseTransform ∷ Type -> Type -> Type
 
-foreign import useTransformImpl ∷
-  ∀ a.
-  EffectFn4
-    (MotionValue a)
-    (Array Number)
-    (Array a)
-    (UndefinedOr (TransformOptionsImpl a))
-    (MotionValue a)
+foreign import useTransformImpl
+  ∷ ∀ a
+  . EffectFn4
+      (MotionValue a)
+      (Array Number)
+      (Array a)
+      (UndefinedOr (TransformOptionsImpl a))
+      (MotionValue a)
 
-useTransform ∷
-  ∀ a. MotionValue a -> TwoOrMore (Number /\ a) -> Maybe (TransformOptions a) -> Hook (UseTransform a) (MotionValue a)
+useTransform
+  ∷ ∀ a. MotionValue a -> TwoOrMore (Number /\ a) -> Maybe (TransformOptions a) -> Hook (UseTransform a) (MotionValue a)
 useTransform motionValue mapping options =
   unsafeHook do
     runEffectFn4
@@ -98,12 +107,12 @@ useTransform motionValue mapping options =
   where
   numbers /\ as = TwoOrMore.toArray mapping # Array.unzip
 
-foreign import useTransformMapImpl ∷
-  ∀ a b.
-  EffectFn2
-    (MotionValue a)
-    (a -> b)
-    (MotionValue b)
+foreign import useTransformMapImpl
+  ∷ ∀ a b
+  . EffectFn2
+      (MotionValue a)
+      (a -> b)
+      (MotionValue b)
 
 useTransformMap :: forall a b. MotionValue a -> (a -> b) -> Hook (UseTransform a) (MotionValue b)
 useTransformMap mv fn = unsafeHook do
@@ -123,15 +132,15 @@ type SpringProps =
 
 foreign import data UseSpring ∷ Type -> Type -> Type
 
-foreign import useSpringImpl ∷
-  ∀ a b.
-  EffectFn2
-    (MotionValue a |+| Number)
-    SpringProps
-    b
+foreign import useSpringImpl
+  ∷ ∀ a b
+  . EffectFn2
+      (MotionValue a |+| Number)
+      SpringProps
+      b
 
-useSpringWithMotionValue ∷
-  ∀ a opts. Castable opts SpringProps => MotionValue a -> opts -> Hook (UseSpring (MotionValue a)) (MotionValue a)
+useSpringWithMotionValue
+  ∷ ∀ a opts. Castable opts SpringProps => MotionValue a -> opts -> Hook (UseSpring (MotionValue a)) (MotionValue a)
 useSpringWithMotionValue motionValue springProps =
   unsafeHook do
     runEffectFn2
@@ -139,8 +148,8 @@ useSpringWithMotionValue motionValue springProps =
       (cast motionValue ∷ MotionValue a |+| Number)
       (cast springProps)
 
-useSpringWithNumber ∷
-  ∀ opts. Castable opts SpringProps => Number -> opts -> Hook (UseSpring (MotionValue Number)) (MotionValue Number)
+useSpringWithNumber
+  ∷ ∀ opts. Castable opts SpringProps => Number -> opts -> Hook (UseSpring (MotionValue Number)) (MotionValue Number)
 useSpringWithNumber number springProps =
   unsafeHook do
     runEffectFn2
@@ -164,3 +173,29 @@ foreign import useTransformEffectImpl :: forall a. EffectFn1 (Effect a) (MotionV
 
 useTransformEffect :: forall a. (Effect a) -> Hook (UseTransform a) (MotionValue a)
 useTransformEffect = unsafeHook <<< runEffectFn1 useTransformEffectImpl
+
+-- UseInView
+foreign import data InViewOptions ∷ Type
+
+foreign import data UseInView ∷ Type -> Type
+
+foreign import useInViewImpl ∷ EffectFn2 (Ref (Nullable Node)) InViewOptions Boolean
+
+useInView ∷ Ref (Nullable Node) -> Maybe InViewOptions -> Hook (UseInView) Boolean
+useInView ref options =
+  unsafeHook do
+    runEffectFn2 useInViewImpl ref
+      ( case options of
+          Nothing -> unsafeCoerce {}
+          Just opts -> opts
+      )
+
+-- UseAnimate
+foreign import data AnimateFunction ∷ Type
+
+foreign import data UseAnimate ∷ Type -> Type
+
+foreign import useAnimateImpl ∷ Effect { scope ∷ Ref (Nullable Node), animate ∷ AnimateFunction }
+
+useAnimate ∷ Hook (UseAnimate) { scope ∷ Ref (Nullable Node), animate ∷ AnimateFunction }
+useAnimate = unsafeHook useAnimateImpl

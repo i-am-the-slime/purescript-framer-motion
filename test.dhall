@@ -10,5 +10,9 @@ in      conf
               , "strings-extra"
               , "newtype"
               , "debug"
+              , "react-testing-library"
+              , "console"
+              , "exceptions"
+              , "web-html"
               ]
         }

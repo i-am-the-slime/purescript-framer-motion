@@ -61,6 +61,8 @@ type MotionPropsF f r =
   , whileHover ∷ f WhileHover
   , whileDrag ∷ f WhileDrag
   , whileTap ∷ f WhileTap
+  , whileInView ∷ f WhileInView
+  , whileFocus ∷ f WhileFocus
   | r
   )
 
@@ -162,6 +164,12 @@ type OnPan =
 
 type WhileTap =
   TargetAndTransition |+| String |+| Undefined
+
+type WhileInView =
+  CSS |+| VariantLabel |+| Undefined
+
+type WhileFocus =
+  CSS |+| VariantLabel |+| Undefined
 
 type OnTap =
   (EffectFn2 Event TapInfo Unit |+| Undefined)
@@ -277,6 +285,12 @@ type DragPropagation =
 
 whileTap ∷ ∀ c. Castable c WhileTap => c -> WhileTap
 whileTap = cast
+
+whileInView ∷ ∀ c. Castable c WhileInView => c -> WhileInView
+whileInView = cast
+
+whileFocus ∷ ∀ c. Castable c WhileFocus => c -> WhileFocus
+whileFocus = cast
 
 class EffectFnMaker fn effectFn | fn -> effectFn where
   toEffectFn ∷ fn -> effectFn

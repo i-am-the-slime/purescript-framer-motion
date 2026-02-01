@@ -11,10 +11,10 @@ import Type.Row (type (+))
 
 foreign import mkMotionComponentImpl ∷ ∀ a. String -> Effect (ReactComponent { | a })
 
-foreign import custom ∷
-  ∀ old.
-  ReactComponent { | old } ->
-  Effect (ReactComponent { | MotionProps old })
+foreign import custom
+  ∷ ∀ old
+   . ReactComponent { | old }
+  -> Effect (ReactComponent { | MotionProps old })
 
 -- DOM
 -- abbr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_abbr) => ReactComponent { | attrs }
@@ -94,7 +94,7 @@ foreign import custom ∷
 -- br ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_br) => ReactComponent { | attrs }
 -- br = brImpl
 
-foreign import buttonImpl :: forall a. ReactComponent {|a}
+foreign import buttonImpl :: forall a. ReactComponent { | a }
 
 button ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_button) => ReactComponent { | attrs }
 button = buttonImpl
@@ -319,7 +319,7 @@ div = divImpl
 -- img ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_img) => ReactComponent { | attrs }
 -- img = imgImpl
 
-foreign import inputImpl :: forall a. ReactComponent {|a}
+foreign import inputImpl :: forall a. ReactComponent { | a }
 
 input ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_input) => ReactComponent { | attrs }
 input = inputImpl
@@ -354,7 +354,7 @@ input = inputImpl
 -- legend ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_legend) => ReactComponent { | attrs }
 -- legend = legendImpl
 
-foreign import liImpl :: forall a. ReactComponent {|a}
+foreign import liImpl :: forall a. ReactComponent { | a }
 
 li ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_li) => ReactComponent { | attrs }
 li = liImpl
@@ -545,7 +545,7 @@ li = liImpl
 -- source ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_source) => ReactComponent { | attrs }
 -- source = sourceImpl
 
-foreign import spanImpl :: forall a. ReactComponent {|a}
+foreign import spanImpl :: forall a. ReactComponent { | a }
 
 span ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_span) => ReactComponent { | attrs }
 span = spanImpl
@@ -634,7 +634,7 @@ span = spanImpl
 -- title ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_title) => ReactComponent { | attrs }
 -- title = titleImpl
 
-foreign import trImpl :: forall a. ReactComponent {|a}
+foreign import trImpl :: forall a. ReactComponent { | a }
 
 tr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tr) => ReactComponent { | attrs }
 tr = trImpl
@@ -921,7 +921,7 @@ g = gImpl
 -- metadata ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_metadata) => ReactComponent { | attrs }
 -- metadata = metadataImpl
 
-foreign import pathImpl :: forall a. ReactComponent {|a}
+foreign import pathImpl :: forall a. ReactComponent { | a }
 
 path ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SharedSVGProps SVG.Props_path) => ReactComponent { | attrs }
 path = pathImpl
@@ -962,7 +962,7 @@ path = pathImpl
 -- stop ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_stop) => ReactComponent { | attrs }
 -- stop = stopImpl
 
-foreign import svgImpl :: forall a. ReactComponent {|a}
+foreign import svgImpl :: forall a. ReactComponent { | a }
 
 svg ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SharedSVGProps SVG.Props_svg) => ReactComponent { | attrs }
 svg = svgImpl

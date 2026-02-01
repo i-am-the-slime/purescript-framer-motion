@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "spago test"
+    "test": "node -r ./test-setup.js -e \"require('./output/Test.Main/index.js').main()\"",
+    "test:build": "spago build --config test.dhall",
+    "test:watch": "spago build --config test.dhall --watch"
   },
   "repository": {
     "type": "git",
@@ -20,11 +22,16 @@
   },
   "homepage": "https://github.com/i-am-the-slime/purescript-framer-motion#readme",
   "dependencies": {
-    "framer-motion": "^10.16.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "motion": "^12.29.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.3.1",
+    "@testing-library/user-event": "^14.5.2",
+    "global-jsdom": "^27.0.0",
+    "jsdom": "^25.0.0",
+    "jsdom-global": "^3.0.2",
     "purescript": "^0.14.5",
     "spago": "^0.20.3"
   }

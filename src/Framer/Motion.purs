@@ -24,22 +24,32 @@ import React.Basic.DOM (CSS)
 import Record (disjointUnion)
 import Untagged.Castable (class Castable, cast)
 
-withMotion ∷
-  ∀ result baseProps motionSubset.
-  Union baseProps (MotionProps ()) result => Nub result result => Castable motionSubset { | MotionProps () } => Record baseProps -> motionSubset -> Record result
+withMotion
+  ∷ ∀ result baseProps motionSubset
+   . Union baseProps (MotionProps ()) result
+  => Nub result result
+  => Castable motionSubset { | MotionProps () }
+  => Record baseProps
+  -> motionSubset
+  -> Record result
 withMotion old new = disjointUnion old ((cast new) ∷ { | MotionProps () })
 
-motion ∷
-  ∀ result baseProps motionSubset.
-  Union baseProps (MotionProps ()) result => Nub result result => Castable motionSubset { | MotionProps () } => motionSubset -> Record baseProps -> Record result
+motion
+  ∷ ∀ result baseProps motionSubset
+   . Union baseProps (MotionProps ()) result
+  => Nub result result
+  => Castable motionSubset { | MotionProps () }
+  => motionSubset
+  -> Record baseProps
+  -> Record result
 motion = flip withMotion
 
 foreign import animatePresenceImpl ∷ ∀ attrs. ReactComponent { | attrs }
 
-animatePresence ∷
-  ∀ attrs attrs_.
-  Union attrs attrs_ AnimatePresenceProps =>
-  ReactComponent { | attrs }
+animatePresence
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ AnimatePresenceProps
+  => ReactComponent { | attrs }
 animatePresence = animatePresenceImpl
 
 foreign import startImpl ∷ ∀ arg. arg -> AnimationControls -> Effect (Promise Unit)

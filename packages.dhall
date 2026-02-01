@@ -103,3 +103,22 @@ let upstream =
         sha256:26d3b3b4052e533534b9a888052a46b594abdd615cb56e58fde188b110480857
 
 in  upstream
+  with react-testing-library =
+    { dependencies =
+        [ "aff"
+        , "aff-promise"
+        , "console"
+        , "effect"
+        , "exceptions"
+        , "foldable-traversable"
+        , "foreign"
+        , "maybe"
+        , "prelude"
+        , "react-basic"
+        , "react-basic-dom"
+        , "react-basic-hooks"
+        , "web-html"
+        ]
+    , repo = "https://github.com/i-am-the-slime/purescript-react-testing-library.git"
+    , version = "main"
+    }

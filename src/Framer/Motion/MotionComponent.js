@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { createElement as _createElement, forwardRef } from "react"
 const createElement = _createElement
 

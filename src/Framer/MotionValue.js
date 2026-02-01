@@ -1,4 +1,4 @@
-import { useMotionValue, animate, transform, MotionValue } from "framer-motion"
+import { useMotionValue, animate, transform, MotionValue } from "motion/react"
 
 export const newMotionValue = (v) => () => new MotionValue(v)
 export const destroy = (mv) => () => mv.destroy()
