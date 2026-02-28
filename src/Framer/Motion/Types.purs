@@ -427,14 +427,12 @@ type UseScrollOptions =
 type LazyMotionProps =
   ( features ∷ Foreign
   , strict ∷ Boolean |+| Undefined
-  , children ∷ Array JSX
   )
 
 -- LayoutGroup props
 type LayoutGroupProps =
   ( id ∷ String |+| Undefined
   , inherit ∷ Boolean |+| String |+| Undefined
-  , children ∷ Array JSX
   )
 
 -- MotionConfig props
@@ -442,7 +440,6 @@ type MotionConfigProps =
   ( transition ∷ CSS |+| Undefined
   , reducedMotion ∷ String |+| Undefined
   , nonce ∷ String |+| Undefined
-  , children ∷ Array JSX
   )
 
 -- Reorder.Group props
@@ -450,12 +447,11 @@ type ReorderGroupProps =
   ( axis ∷ String
   , onReorder ∷ EffectFn1 (Array Foreign) Unit
   , values ∷ Array Foreign
-  , children ∷ Array JSX
   )
 
 -- Reorder.Item props
 type ReorderItemProps =
   ( value ∷ Foreign
+  , key ∷ String
   , layout ∷ Boolean |+| String |+| Undefined
-  , children ∷ JSX
   )

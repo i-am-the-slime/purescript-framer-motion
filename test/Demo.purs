@@ -415,28 +415,23 @@ useScrollDemo_ = component "UseScrollDemo" \_ -> React.do
 -- 9. LazyMotion
 ------------------------------------------------------------------------
 lazyMotionDemo ∷ Unit → JSX
-lazyMotionDemo _ = element M.lazyMotion
-  { features: unsafeToForeign domAnimation
-  , children:
-      [ R.div_
-          [ R.p
-              { style: R.css { fontSize: "13px", fontFamily: "monospace", marginBottom: "12px" }
-              , children: [ R.text "<LazyMotion features={domAnimation}> wraps the animation below, reducing initial bundle to ~6kb" ]
-              }
-          , Motion.div
-              { style: Yoga.css
-                  { width: "60px"
-                  , height: "60px"
-                  , borderRadius: "12px"
-                  , background: "linear-gradient(135deg, #667eea, #764ba2)"
-                  }
-              , animate: M.animate $ Yoga.css { rotate: 360.0 }
-              , transition: M.transition { duration: 2.0, repeat: unsafeToForeign M.infinity, ease: "linear" }
-              }
-              ([] ∷ Array JSX)
-          ]
-      ]
-  }
+lazyMotionDemo _ = M.lazyMotion { features: unsafeToForeign domAnimation }
+  [ R.p
+      { style: R.css { fontSize: "13px", fontFamily: "monospace", marginBottom: "12px" }
+      , children: [ R.text "<LazyMotion features={domAnimation}> wraps the animation below, reducing initial bundle to ~6kb" ]
+      }
+  , Motion.div
+      { style: Yoga.css
+          { width: "60px"
+          , height: "60px"
+          , borderRadius: "12px"
+          , background: "linear-gradient(135deg, #667eea, #764ba2)"
+          }
+      , animate: M.animate $ Yoga.css { rotate: 360.0 }
+      , transition: M.transition { duration: 2.0, repeat: unsafeToForeign M.infinity, ease: "linear" }
+      }
+      ([] ∷ Array JSX)
+  ]
 
 foreign import motionDivWithDragControls ∷ Types.DragControls → Array JSX → JSX
 
@@ -457,12 +452,10 @@ layoutGroupDemo = unsafeCoerce layoutGroupDemo_
 layoutGroupDemo_ ∷ Effect (Unit → JSX)
 layoutGroupDemo_ = component "LayoutGroupDemo" \_ -> React.do
   selected /\ setSelected <- React.useState' 0
-  pure $ element M.layoutGroup
-    { id: cast "tabs-demo"
-    , children:
-        [ R.div
-            { style: R.css { display: "flex", gap: "8px" }
-            , children: (0 .. 2) <#> \i ->
+  pure $ M.layoutGroup { id: cast "tabs-demo" }
+    [ R.div
+        { style: R.css { display: "flex", gap: "8px" }
+        , children: (0 .. 2) <#> \i ->
                 R.div
                   { style: R.css
                       { padding: "8px 16px"
@@ -493,8 +486,7 @@ layoutGroupDemo_ = component "LayoutGroupDemo" \_ -> React.do
                             else [])
                   }
             }
-        ]
-    }
+    ]
 
 ------------------------------------------------------------------------
 -- 11. MotionConfig
@@ -505,45 +497,42 @@ motionConfigDemo = unsafeCoerce motionConfigDemo_
 motionConfigDemo_ ∷ Effect (Unit → JSX)
 motionConfigDemo_ = component "MotionConfigDemo" \_ -> React.do
   toggled /\ setToggled <- React.useState' false
-  pure $ element M.motionConfig
-    { transition: M.transition { type: "spring", stiffness: 50, damping: 10 }
-    , children:
-        [ R.div
-            { style: R.css { display: "flex", gap: "12px", alignItems: "center" }
-            , children:
-                [ R.button
-                    { onClick: mkEffectFn1 \_ -> setToggled (not toggled)
-                    , style: R.css { padding: "8px 16px", borderRadius: "8px", border: "1px solid #ccc", cursor: "pointer" }
-                    , children: [ R.text "Toggle" ]
+  pure $ M.motionConfig { transition: M.transition { type: "spring", stiffness: 50, damping: 10 } }
+    [ R.div
+        { style: R.css { display: "flex", gap: "12px", alignItems: "center" }
+        , children:
+            [ R.button
+                { onClick: mkEffectFn1 \_ -> setToggled (not toggled)
+                , style: R.css { padding: "8px 16px", borderRadius: "8px", border: "1px solid #ccc", cursor: "pointer" }
+                , children: [ R.text "Toggle" ]
+                }
+            , Motion.div
+                { style: Yoga.css
+                    { width: "60px"
+                    , height: "60px"
+                    , borderRadius: "12px"
+                    , background: "linear-gradient(135deg, #667eea, #764ba2)"
                     }
-                , Motion.div
-                    { style: Yoga.css
-                        { width: "60px"
-                        , height: "60px"
-                        , borderRadius: "12px"
-                        , background: "linear-gradient(135deg, #667eea, #764ba2)"
-                        }
-                    , animate: M.animate $ Yoga.css { x: if toggled then 120.0 else 0.0, rotate: if toggled then 180.0 else 0.0 }
+                , animate: M.animate $ Yoga.css { x: if toggled then 120.0 else 0.0, rotate: if toggled then 180.0 else 0.0 }
+                }
+                ([] ∷ Array JSX)
+            , Motion.div
+                { style: Yoga.css
+                    { width: "40px"
+                    , height: "40px"
+                    , borderRadius: "50%"
+                    , background: "linear-gradient(135deg, #f093fb, #f5576c)"
                     }
-                    ([] ∷ Array JSX)
-                , Motion.div
-                    { style: Yoga.css
-                        { width: "40px"
-                        , height: "40px"
-                        , borderRadius: "50%"
-                        , background: "linear-gradient(135deg, #f093fb, #f5576c)"
-                        }
-                    , animate: M.animate $ Yoga.css { y: if toggled then (-30.0) else 0.0, scale: if toggled then 1.3 else 1.0 }
-                    }
-                    ([] ∷ Array JSX)
-                ]
-            }
-        , R.p
-            { style: R.css { fontSize: "13px", color: "#888", marginTop: "8px" }
-            , children: [ R.text "Both shapes share the same slow spring from MotionConfig" ]
-            }
-        ]
-    }
+                , animate: M.animate $ Yoga.css { y: if toggled then (-30.0) else 0.0, scale: if toggled then 1.3 else 1.0 }
+                }
+                ([] ∷ Array JSX)
+            ]
+        }
+    , R.p
+        { style: R.css { fontSize: "13px", color: "#888", marginTop: "8px" }
+        , children: [ R.text "Both shapes share the same slow spring from MotionConfig" ]
+        }
+    ]
 
 ------------------------------------------------------------------------
 -- 12. Reorder
@@ -554,35 +543,32 @@ reorderDemo = unsafeCoerce reorderDemo_
 reorderDemo_ ∷ Effect (Unit → JSX)
 reorderDemo_ = component "ReorderDemo" \_ -> React.do
   items /\ setItems <- React.useState' [ "Apples", "Bananas", "Cherries", "Dates", "Elderberries" ]
-  pure $ element M.reorderGroup
+  pure $ M.reorderGroup
     { axis: "y"
     , values: unsafeToForeign <$> items
     , onReorder: mkEffectFn1 \newItems -> setItems (unsafeCoerce newItems)
-    , children: items <#> \item ->
-        elementKeyed M.reorderItem
-          { key: item
-          , value: unsafeToForeign item
-          , children:
-              R.div
-                { style: R.css
-                    { padding: "12px 16px"
-                    , marginBottom: "4px"
-                    , borderRadius: "8px"
-                    , background: "white"
-                    , border: "1px solid #e0e0e8"
-                    , cursor: "grab"
-                    , display: "flex"
-                    , alignItems: "center"
-                    , gap: "8px"
-                    , userSelect: "none"
-                    }
-                , children:
-                    [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
-                    , R.text item
-                    ]
-                }
-          }
     }
+    ( items <#> \item ->
+        M.reorderItem { key: item, value: unsafeToForeign item }
+          $ R.div
+              { style: R.css
+                  { padding: "12px 16px"
+                  , marginBottom: "4px"
+                  , borderRadius: "8px"
+                  , background: "white"
+                  , border: "1px solid #e0e0e8"
+                  , cursor: "grab"
+                  , display: "flex"
+                  , alignItems: "center"
+                  , gap: "8px"
+                  , userSelect: "none"
+                  }
+              , children:
+                  [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
+                  , R.text item
+                  ]
+              }
+    )
 
 ------------------------------------------------------------------------
 -- 13. onAnimationCancel

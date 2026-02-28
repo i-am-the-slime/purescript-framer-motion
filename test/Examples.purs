@@ -315,18 +315,13 @@ mkScrollOffsetExample = component "ScrollOffsetExample" \_ -> React.do
 ------------------------------------------------------------------------
 mkLazyMotionExample ∷ Effect (Unit → JSX)
 mkLazyMotionExample = component "LazyMotionExample" \_ -> React.do
-  pure $ element M.lazyMotion
-    { features: unsafeToForeign {}  -- domAnimation would be imported from motion/react
-    , children: [ R.text "Lazy loaded features" ]
-    }
+  pure $ M.lazyMotion { features: unsafeToForeign {} }
+    [ R.text "Lazy loaded features" ]
 
 mkLazyMotionStrictExample ∷ Effect (Unit → JSX)
 mkLazyMotionStrictExample = component "LazyMotionStrict" \_ -> React.do
-  pure $ element M.lazyMotion
-    { features: unsafeToForeign {}
-    , strict: cast true
-    , children: [ R.text "Strict lazy motion" ]
-    }
+  pure $ M.lazyMotion { features: unsafeToForeign {}, strict: cast true }
+    [ R.text "Strict lazy motion" ]
 
 ------------------------------------------------------------------------
 -- LayoutGroup
@@ -350,28 +345,17 @@ mkLazyMotionStrictExample = component "LazyMotionStrict" \_ -> React.do
 ------------------------------------------------------------------------
 mkLayoutGroupExample ∷ Effect (Unit → JSX)
 mkLayoutGroupExample = component "LayoutGroupExample" \_ -> React.do
-  pure $ element M.layoutGroup
-    { id: cast "tabs"
-    , children:
-        [ Motion.div { layout: M.layout true, layoutId: M.layoutId "tab1" } ([] ∷ Array JSX)
-        , Motion.div { layout: M.layout true, layoutId: M.layoutId "tab2" } ([] ∷ Array JSX)
-        ]
-    }
+  pure $ M.layoutGroup { id: cast "tabs" }
+    [ Motion.div { layout: M.layout true, layoutId: M.layoutId "tab1" } ([] ∷ Array JSX)
+    , Motion.div { layout: M.layout true, layoutId: M.layoutId "tab2" } ([] ∷ Array JSX)
+    ]
 
 mkLayoutGroupInheritExample ∷ Effect (Unit → JSX)
 mkLayoutGroupInheritExample = component "LayoutGroupInherit" \_ -> React.do
-  pure $ element M.layoutGroup
-    { id: cast "outer"
-    , children:
-        [ element M.layoutGroup
-            { id: cast "inner"
-            , inherit: cast "id"
-            , children:
-                [ Motion.div { layout: M.layout true } ([] ∷ Array JSX)
-                ]
-            }
-        ]
-    }
+  pure $ M.layoutGroup { id: cast "outer" }
+    [ M.layoutGroup { id: cast "inner", inherit: cast "id" }
+        [ Motion.div { layout: M.layout true } ([] ∷ Array JSX) ]
+    ]
 
 ------------------------------------------------------------------------
 -- MotionConfig
@@ -391,12 +375,8 @@ mkLayoutGroupInheritExample = component "LayoutGroupInherit" \_ -> React.do
 ------------------------------------------------------------------------
 mkMotionConfigExample ∷ Effect (Unit → JSX)
 mkMotionConfigExample = component "MotionConfigExample" \_ -> React.do
-  pure $ element M.motionConfig
-    { transition: M.transition { type: "spring" }
-    , children:
-        [ Motion.div { animate: M.animate $ Yoga.css { x: 100.0 } } ([] ∷ Array JSX)
-        ]
-    }
+  pure $ M.motionConfig { transition: M.transition { type: "spring" } }
+    [ Motion.div { animate: M.animate $ Yoga.css { x: 100.0 } } ([] ∷ Array JSX) ]
 
 ------------------------------------------------------------------------
 -- Reorder.Group + Reorder.Item
@@ -421,31 +401,27 @@ mkMotionConfigExample = component "MotionConfigExample" \_ -> React.do
 mkReorderExample ∷ Effect (Unit → JSX)
 mkReorderExample = component "ReorderExample" \_ -> React.do
   items /\ setItems <- React.useState' [ "a", "b", "c" ]
-  pure $ element M.reorderGroup
+  pure $ M.reorderGroup
     { axis: "y"
     , values: unsafeToForeign <$> items
     , onReorder: mkEffectFn1 \newItems -> setItems (unsafeCoerce newItems)
-    , children: items <#> \item ->
-        element M.reorderItem
-          { value: unsafeToForeign item
-          , children: R.text item
-          }
     }
+    ( items <#> \item ->
+        M.reorderItem { key: item, value: unsafeToForeign item } (R.text item)
+    )
 
 -- Horizontal reorder
 mkReorderHorizontalExample ∷ Effect (Unit → JSX)
 mkReorderHorizontalExample = component "ReorderHorizontal" \_ -> React.do
   items /\ setItems <- React.useState' [ 1, 2, 3, 4 ]
-  pure $ element M.reorderGroup
+  pure $ M.reorderGroup
     { axis: "x"
     , values: unsafeToForeign <$> items
     , onReorder: mkEffectFn1 \newItems -> setItems (unsafeCoerce newItems)
-    , children: items <#> \item ->
-        element M.reorderItem
-          { value: unsafeToForeign item
-          , children: R.text (show item)
-          }
     }
+    ( items <#> \item ->
+        M.reorderItem { key: show item, value: unsafeToForeign item } (R.text (show item))
+    )
 
 ------------------------------------------------------------------------
 -- MotionValue.onAnimationCancel

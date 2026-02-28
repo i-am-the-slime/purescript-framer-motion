@@ -25,8 +25,8 @@ import Effect.Aff (Aff)
 import Framer.Motion.MotionComponent (a, a_, abbr, address, area, article, aside, audio, b, blockquote, br, button, button_, canvas, caption, cite, code, col, colgroup, custom, datalist, dd, del, details, dfn, dialog, div, div_, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, g, g_, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, kbd, label, legend, li, li_, line, linearGradient, main, mark, marker, mask, menu, meter, nav, ol, optgroup, option, output, p, path, path_, picture, polygon, polyline, pre, progress, q, radialGradient, rect, rp, rt, ruby, s, samp, section, select, small, source, span, span_, stop, strong, sub, summary, sup, svg, svg_, table, tbody, td, text, textPath, textarea, tfoot, th, thead, time, tr, tspan, u, ul, use, video, circle, clipPath, defs, ellipse, foreignObject, image)
 import Prelude (Unit, flip)
 import Prim.Row (class Nub, class Union)
-import React.Basic (ReactComponent)
-import Yoga.React.DOM.Internal (CSS)
+import React.Basic (JSX, ReactComponent)
+import Yoga.React.DOM.Internal (CSS, class IsJSX)
 import Record (disjointUnion)
 import Untagged.Castable (class Castable, cast)
 
@@ -75,46 +75,51 @@ stopAnimation ∷ AnimationControls -> Effect Unit
 stopAnimation = stopImpl
 
 -- LazyMotion
-foreign import lazyMotionImpl ∷ ∀ attrs. ReactComponent { | attrs }
+foreign import lazyMotionImpl ∷ ∀ props kids. props -> kids -> JSX
 
 lazyMotion
-  ∷ ∀ attrs attrs_
+  ∷ ∀ attrs attrs_ kids
    . Union attrs attrs_ LazyMotionProps
-  => ReactComponent { | attrs }
+  => IsJSX kids
+  => { | attrs } -> kids -> JSX
 lazyMotion = lazyMotionImpl
 
 -- LayoutGroup
-foreign import layoutGroupImpl ∷ ∀ attrs. ReactComponent { | attrs }
+foreign import layoutGroupImpl ∷ ∀ props kids. props -> kids -> JSX
 
 layoutGroup
-  ∷ ∀ attrs attrs_
+  ∷ ∀ attrs attrs_ kids
    . Union attrs attrs_ LayoutGroupProps
-  => ReactComponent { | attrs }
+  => IsJSX kids
+  => { | attrs } -> kids -> JSX
 layoutGroup = layoutGroupImpl
 
 -- MotionConfig
-foreign import motionConfigImpl ∷ ∀ attrs. ReactComponent { | attrs }
+foreign import motionConfigImpl ∷ ∀ props kids. props -> kids -> JSX
 
 motionConfig
-  ∷ ∀ attrs attrs_
+  ∷ ∀ attrs attrs_ kids
    . Union attrs attrs_ MotionConfigProps
-  => ReactComponent { | attrs }
+  => IsJSX kids
+  => { | attrs } -> kids -> JSX
 motionConfig = motionConfigImpl
 
 -- Reorder.Group
-foreign import reorderGroupImpl ∷ ∀ attrs. ReactComponent { | attrs }
+foreign import reorderGroupImpl ∷ ∀ props kids. props -> kids -> JSX
 
 reorderGroup
-  ∷ ∀ attrs attrs_
+  ∷ ∀ attrs attrs_ kids
    . Union attrs attrs_ ReorderGroupProps
-  => ReactComponent { | attrs }
+  => IsJSX kids
+  => { | attrs } -> kids -> JSX
 reorderGroup = reorderGroupImpl
 
 -- Reorder.Item
-foreign import reorderItemImpl ∷ ∀ attrs. ReactComponent { | attrs }
+foreign import reorderItemImpl ∷ ∀ props kids. props -> kids -> JSX
 
 reorderItem
-  ∷ ∀ attrs attrs_
+  ∷ ∀ attrs attrs_ kids
    . Union attrs attrs_ ReorderItemProps
-  => ReactComponent { | attrs }
+  => IsJSX kids
+  => { | attrs } -> kids -> JSX
 reorderItem = reorderItemImpl
