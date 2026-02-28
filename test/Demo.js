@@ -11,10 +11,9 @@ export const motionDivWithDragControls = controls => children =>
     dragControls: controls,
     dragListener: false,
     style: {
-      width: "80px",
-      height: "80px",
       borderRadius: "12px",
       background: "linear-gradient(135deg, #f093fb, #f5576c)",
+      display: "inline-block",
     }
   }, ...children)
 

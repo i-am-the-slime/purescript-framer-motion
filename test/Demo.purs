@@ -188,33 +188,37 @@ useDragControlsDemo = unsafeCoerce useDragControlsDemo_
 useDragControlsDemo_ ∷ Effect (Unit → JSX)
 useDragControlsDemo_ = component "UseDragControlsDemo" \_ -> React.do
   controls <- Hook.useDragControls
-  pure $ R.div
-    { style: R.css { display: "flex", alignItems: "center", gap: "16px" }
-    , children:
-        [ R.div
-            { style: R.css
-                { width: "40px"
-                , height: "40px"
-                , borderRadius: "8px"
-                , background: "#ddd"
-                , display: "flex"
-                , alignItems: "center"
-                , justifyContent: "center"
-                , cursor: "grab"
-                , fontSize: "18px"
-                , userSelect: "none"
-                }
-            , onPointerDown: mkEffectFn1 \e -> Types.dragControlsStart controls (unsafeCoerce e)
-            , children: [ R.text "⠿" ]
-            }
-        , motionDivWithDragControls controls
+  -- The handle is INSIDE the draggable element.
+  -- dragListener: false prevents dragging from the box body;
+  -- only the handle's onPointerDown triggers the drag.
+  pure $ motionDivWithDragControls controls
+    [ R.div
+        { style: R.css { display: "flex", alignItems: "center", gap: "12px", padding: "12px" }
+        , children:
             [ R.div
-                { style: R.css { color: "white", fontSize: "11px", padding: "8px", textAlign: "center" }
+                { style: R.css
+                    { width: "32px"
+                    , height: "32px"
+                    , borderRadius: "6px"
+                    , background: "rgba(255,255,255,0.3)"
+                    , display: "flex"
+                    , alignItems: "center"
+                    , justifyContent: "center"
+                    , cursor: "grab"
+                    , fontSize: "18px"
+                    , userSelect: "none"
+                    , flexShrink: "0"
+                    }
+                , onPointerDown: mkEffectFn1 \e -> Types.dragControlsStart controls (unsafeCoerce e)
+                , children: [ R.text "⠿" ]
+                }
+            , R.span
+                { style: R.css { color: "white", fontSize: "13px" }
                 , children: [ R.text "drag via handle" ]
                 }
             ]
-        ]
-    }
+        }
+    ]
 
 ------------------------------------------------------------------------
 -- 4. useMotionValueEvent
