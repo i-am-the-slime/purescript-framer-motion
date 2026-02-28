@@ -35,7 +35,7 @@ export const useAnimateImpl = () => {
 export const useDragControlsImpl = useDragControls;
 
 export const useMotionValueEventImpl = (mv, eventName, callback) => {
-  useMotionValueEvent(mv, eventName, (v) => callback(v)());
+  useMotionValueEvent(mv, eventName, (v) => callback(v));
 };
 
 export const useVelocityImpl = useVelocity;

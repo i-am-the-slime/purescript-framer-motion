@@ -1,6 +1,20 @@
-import { domAnimation } from "motion/react"
+import { domAnimation, motion } from "motion/react"
+import React from "react"
 
 export { domAnimation }
+
+export const motionDivWithDragControls = controls => children =>
+  React.createElement(motion.div, {
+    drag: true,
+    dragControls: controls,
+    dragListener: false,
+    style: {
+      width: "80px",
+      height: "80px",
+      borderRadius: "12px",
+      background: "linear-gradient(135deg, #f093fb, #f5576c)",
+    }
+  }, ...children)
 
 export const merge2 = a => b => Object.assign({}, a, b)
 

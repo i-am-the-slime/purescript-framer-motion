@@ -206,15 +206,7 @@ useDragControlsDemo_ = component "UseDragControlsDemo" \_ -> React.do
             , onPointerDown: mkEffectFn1 \e -> Types.dragControlsStart controls (unsafeCoerce e)
             , children: [ R.text "⠿" ]
             }
-        , Motion.div
-            { style: Yoga.css
-                { width: "80px"
-                , height: "80px"
-                , borderRadius: "12px"
-                , background: "linear-gradient(135deg, #f093fb, #f5576c)"
-                }
-            , drag: M.drag true
-            }
+        , motionDivWithDragControls controls
             [ R.div
                 { style: R.css { color: "white", fontSize: "11px", padding: "8px", textAlign: "center" }
                 , children: [ R.text "drag via handle" ]
@@ -234,7 +226,7 @@ useMotionValueEventDemo_ = component "UseMotionValueEventDemo" \_ -> React.do
   x <- MV.useMotionValue 0.0
   eventLog /\ setEventLog <- React.useState' ""
   Hook.useMotionValueEvent x "change" \(latest ∷ Number) ->
-    setEventLog ("x = " <> show (unsafeCoerce (truncate latest) ∷ Int))
+    setEventLog ("x = " <> show latest)
   pure $ R.div_
     [ Motion.div
         { style: Yoga.css
@@ -247,17 +239,16 @@ useMotionValueEventDemo_ = component "UseMotionValueEventDemo" \_ -> React.do
             }
         , drag: M.drag "x"
         }
-        ([] ∷ Array JSX)
+        [ R.div
+            { style: R.css { color: "white", fontSize: "11px", padding: "8px", textAlign: "center" }
+            , children: [ R.text "drag me" ]
+            }
+        ]
     , R.div
         { style: R.css { marginTop: "8px", fontSize: "13px", fontFamily: "monospace", color: "#888" }
         , children: [ R.text eventLog ]
         }
     ]
-  where
-  truncate ∷ Number → Int
-  truncate = unsafeCoerce >>> (\n → (unsafeCoerce (round n)) ∷ Int)
-  round ∷ Number → Number
-  round n = unsafeCoerce (jsRound n)
 
 foreign import jsRound ∷ Number → Number
 
@@ -384,6 +375,8 @@ lazyMotionDemo _ = element M.lazyMotion
           }
       ]
   }
+
+foreign import motionDivWithDragControls ∷ Types.DragControls → Array JSX → JSX
 
 foreign import domAnimation ∷ ∀ a. a
 
