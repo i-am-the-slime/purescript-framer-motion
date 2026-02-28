@@ -21,6 +21,22 @@ module Framer.Motion.Hook
   , useAnimate
   , UseAnimate
   , AnimateFunction
+  , useDragControls
+  , UseDragControls
+  , useMotionValueEvent
+  , UseMotionValueEvent
+  , useVelocity
+  , UseVelocity
+  , useTime
+  , UseTime
+  , useAnimationFrame
+  , UseAnimationFrame
+  , useReducedMotion
+  , UseReducedMotion
+  , useWillChange
+  , UseWillChange
+  , useScroll
+  , UseScroll
   ) where
 
 import Prelude
@@ -31,10 +47,11 @@ import Data.Tuple.Nested ((/\), type (/\))
 import Data.TwoOrMore (TwoOrMore)
 import Data.TwoOrMore as TwoOrMore
 import Effect (Effect)
-import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn4, mkEffectFn1, runEffectFn1, runEffectFn2, runEffectFn4)
-import Framer.Motion (AnimationControls)
+import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, mkEffectFn1, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
+import Framer.Motion.Types (AnimationControls, DragControls, WillChange, UseScrollOptions)
 import Literals.Undefined (Undefined, undefined)
 import MotionValue (MotionValue)
+import Prim.Row (class Union)
 import React.Basic.Hooks (Hook, Ref, unsafeHook)
 import Untagged.Castable (class Castable, cast)
 import Untagged.Union (type (|+|), UndefinedOr, maybeToUor)
@@ -199,3 +216,72 @@ foreign import useAnimateImpl ∷ Effect { scope ∷ Ref (Nullable Node), animat
 
 useAnimate ∷ Hook (UseAnimate) { scope ∷ Ref (Nullable Node), animate ∷ AnimateFunction }
 useAnimate = unsafeHook useAnimateImpl
+
+-- UseDragControls
+foreign import data UseDragControls ∷ Type -> Type
+
+foreign import useDragControlsImpl ∷ Effect DragControls
+
+useDragControls ∷ Hook UseDragControls DragControls
+useDragControls = unsafeHook useDragControlsImpl
+
+-- UseMotionValueEvent
+foreign import data UseMotionValueEvent ∷ Type -> Type
+
+foreign import useMotionValueEventImpl ∷ ∀ a. EffectFn3 (MotionValue a) String (EffectFn1 a Unit) Unit
+
+useMotionValueEvent ∷ ∀ a. MotionValue a → String → (a → Effect Unit) → Hook UseMotionValueEvent Unit
+useMotionValueEvent mv eventName callback =
+  unsafeHook do
+    runEffectFn3 useMotionValueEventImpl mv eventName (mkEffectFn1 callback)
+
+-- UseVelocity
+foreign import data UseVelocity ∷ Type -> Type
+
+foreign import useVelocityImpl ∷ EffectFn1 (MotionValue Number) (MotionValue Number)
+
+useVelocity ∷ MotionValue Number → Hook UseVelocity (MotionValue Number)
+useVelocity = unsafeHook <<< runEffectFn1 useVelocityImpl
+
+-- UseTime
+foreign import data UseTime ∷ Type -> Type
+
+foreign import useTimeImpl ∷ Effect (MotionValue Number)
+
+useTime ∷ Hook UseTime (MotionValue Number)
+useTime = unsafeHook useTimeImpl
+
+-- UseAnimationFrame
+foreign import data UseAnimationFrame ∷ Type -> Type
+
+foreign import useAnimationFrameImpl ∷ EffectFn1 (Number → Number → Effect Unit) Unit
+
+useAnimationFrame ∷ (Number → Number → Effect Unit) → Hook UseAnimationFrame Unit
+useAnimationFrame callback =
+  unsafeHook do
+    runEffectFn1 useAnimationFrameImpl callback
+
+-- UseReducedMotion
+foreign import data UseReducedMotion ∷ Type -> Type
+
+foreign import useReducedMotionImpl ∷ Effect (Nullable Boolean)
+
+useReducedMotion ∷ Hook UseReducedMotion (Nullable Boolean)
+useReducedMotion = unsafeHook useReducedMotionImpl
+
+-- UseWillChange
+foreign import data UseWillChange ∷ Type -> Type
+
+foreign import useWillChangeImpl ∷ Effect WillChange
+
+useWillChange ∷ Hook UseWillChange WillChange
+useWillChange = unsafeHook useWillChangeImpl
+
+-- UseScroll (with options)
+foreign import data UseScroll ∷ Type -> Type
+
+foreign import useScrollWithOptionsImpl ∷ ∀ attrs. EffectFn1 { | attrs } ViewportScrollValues
+
+useScroll ∷ ∀ attrs attrs_. Union attrs attrs_ UseScrollOptions => { | attrs } → Hook UseScroll ViewportScrollValues
+useScroll options = unsafeHook do
+  runEffectFn1 useScrollWithOptionsImpl options

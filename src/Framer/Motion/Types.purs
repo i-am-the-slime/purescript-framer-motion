@@ -11,7 +11,7 @@ import Foreign.Object (Object)
 import Heterogeneous.Mapping (class HMapWithIndex, class MappingWithIndex, hmapWithIndex)
 import Literals.Undefined (Undefined)
 import React.Basic (JSX)
-import React.Basic.DOM (CSS, css)
+import Yoga.React.DOM.Internal (CSS, css)
 import React.Basic.Hooks (Ref)
 import Type.Proxy (Proxy)
 import Unsafe.Coerce (unsafeCoerce)
@@ -402,3 +402,60 @@ crossfade ∷ AnimateSharedLayoutType
 crossfade = AnimateSharedLayoutType "crossfade"
 
 foreign import data AnimationPlaybackControls ∷ Type
+
+-- DragControls
+foreign import data DragControls ∷ Type
+
+foreign import dragControlsStart ∷ DragControls → Event → Effect Unit
+foreign import dragControlsCancel ∷ DragControls → Effect Unit
+foreign import dragControlsStop ∷ DragControls → Effect Unit
+
+-- WillChange
+foreign import data WillChange ∷ Type
+
+foreign import willChangeAdd ∷ WillChange → String → Effect Unit
+
+-- UseScroll options
+type UseScrollOptions =
+  ( container ∷ Ref (Nullable Node) |+| Undefined
+  , target ∷ Ref (Nullable Node) |+| Undefined
+  , axis ∷ String |+| Undefined
+  , offset ∷ Array String |+| Undefined
+  )
+
+-- LazyMotion props
+type LazyMotionProps =
+  ( features ∷ Foreign
+  , strict ∷ Boolean |+| Undefined
+  , children ∷ Array JSX
+  )
+
+-- LayoutGroup props
+type LayoutGroupProps =
+  ( id ∷ String |+| Undefined
+  , inherit ∷ Boolean |+| String |+| Undefined
+  , children ∷ Array JSX
+  )
+
+-- MotionConfig props
+type MotionConfigProps =
+  ( transition ∷ CSS |+| Undefined
+  , reducedMotion ∷ String |+| Undefined
+  , nonce ∷ String |+| Undefined
+  , children ∷ Array JSX
+  )
+
+-- Reorder.Group props
+type ReorderGroupProps =
+  ( axis ∷ String
+  , onReorder ∷ EffectFn1 (Array Foreign) Unit
+  , values ∷ Array Foreign
+  , children ∷ Array JSX
+  )
+
+-- Reorder.Item props
+type ReorderItemProps =
+  ( value ∷ Foreign
+  , layout ∷ Boolean |+| String |+| Undefined
+  , children ∷ Array JSX
+  )

@@ -42,6 +42,8 @@ foreign import onAnimationStart ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -
 useMotionValue ∷ ∀ a. a -> Hook (UseMotionValue a) (MotionValue a)
 useMotionValue = unsafeHook <<< runEffectFn1 useMotionValueImpl
 
+foreign import onAnimationCancel ∷ ∀ a. (a -> Effect Unit) -> MotionValue a -> Effect (Effect Unit)
+
 foreign import animateImpl ∷ ∀ a options. EffectFn3 (MotionValue a) a { | options } AnimationPlaybackControls
 
 animate ∷ ∀ a options. a -> Record options -> MotionValue a -> Effect AnimationPlaybackControls

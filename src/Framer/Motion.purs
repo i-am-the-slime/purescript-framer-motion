@@ -2,8 +2,14 @@ module Framer.Motion
   ( motion
   , withMotion
   , animatePresence
+  , lazyMotion
+  , layoutGroup
+  , motionConfig
+  , reorderGroup
+  , reorderItem
   , module Framer.Motion.Types
   , module Framer.Motion.MotionComponent
+  , module Framer.Motion.Hook
   , startAnimation
   , startAnimationDynamic
   , startAnimationVariant
@@ -11,16 +17,16 @@ module Framer.Motion
   ) where
 
 import Framer.Motion.Types
+import Framer.Motion.Hook
 import Control.Promise (Promise)
 import Control.Promise as Promise
 import Effect (Effect)
 import Effect.Aff (Aff)
--- import Framer.Motion.MotionComponent (_data, abbr, address, area, article, aside, audio, b, base, bdi, bdo, blockquote, body, br, button, canvas, caption, circle, cite, clipPath, code, col, colgroup, custom, datalist, dd, defs, del, desc, details, dfn, dialog, div, ,  dl, dt, ellipse, em, embed, feBlend, feColorMatrix, feComponentTransfer, feComposite, feConvolveMatrix, feDiffuseLighting, feDisplacementMap, feDistantLight, feDropShadow, feFlood, feFuncA, feFuncB, feFuncG, feFuncR, feGaussianBlur, feImage, feMerge, feMergeNode, feMorphology, feOffset, fePointLight, feSpecularLighting, feSpotLight, feTile, feTurbulence, fieldset, figcaption, figure, filter, footer, foreignObject, form, g, h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html, i, iframe, image, img, input, ins, kbd, keygen, label, legend, li, line, linearGradient, link, main, map, mark, marker, mask, menu, menuitem, meta, metadata, meter, mkMotionComponentImpl, nav, noscript, object, ol, optgroup, option, output, p, param, path, pattern, picture, polygon, polyline, pre, progress, q, radialGradient, rect, rp, rt, ruby, s, samp, script, section, select, small, source, span, stop, strong, style, sub, summary, sup, svg, svgAnimate, svgSwitch, symbol, table, tbody, td, text, textPath, textarea, tfoot, th, thead, time, title, tr, track, tspan, u, ul, use, var, video, view, wbr)
-import Framer.Motion.MotionComponent (div, divImpl, custom, span, spanImpl, button, buttonImpl, liImpl, li, input, inputImpl, path, pathImpl, svgImpl, svg, g, gImpl)
+import Framer.Motion.MotionComponent (a, a_, abbr, address, area, article, aside, audio, b, blockquote, br, button, button_, canvas, caption, cite, code, col, colgroup, custom, datalist, dd, del, details, dfn, dialog, div, div_, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, g, g_, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, kbd, label, legend, li, li_, line, linearGradient, main, mark, marker, mask, menu, meter, nav, ol, optgroup, option, output, p, path, path_, picture, polygon, polyline, pre, progress, q, radialGradient, rect, rp, rt, ruby, s, samp, section, select, small, source, span, span_, stop, strong, sub, summary, sup, svg, svg_, table, tbody, td, text, textPath, textarea, tfoot, th, thead, time, tr, tspan, u, ul, use, video, circle, clipPath, defs, ellipse, foreignObject, image)
 import Prelude (Unit, flip)
 import Prim.Row (class Nub, class Union)
 import React.Basic (ReactComponent)
-import React.Basic.DOM (CSS)
+import Yoga.React.DOM.Internal (CSS)
 import Record (disjointUnion)
 import Untagged.Castable (class Castable, cast)
 
@@ -67,3 +73,48 @@ startAnimationVariant arg controls = Promise.toAffE (startImpl arg controls)
 
 stopAnimation ∷ AnimationControls -> Effect Unit
 stopAnimation = stopImpl
+
+-- LazyMotion
+foreign import lazyMotionImpl ∷ ∀ attrs. ReactComponent { | attrs }
+
+lazyMotion
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ LazyMotionProps
+  => ReactComponent { | attrs }
+lazyMotion = lazyMotionImpl
+
+-- LayoutGroup
+foreign import layoutGroupImpl ∷ ∀ attrs. ReactComponent { | attrs }
+
+layoutGroup
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ LayoutGroupProps
+  => ReactComponent { | attrs }
+layoutGroup = layoutGroupImpl
+
+-- MotionConfig
+foreign import motionConfigImpl ∷ ∀ attrs. ReactComponent { | attrs }
+
+motionConfig
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ MotionConfigProps
+  => ReactComponent { | attrs }
+motionConfig = motionConfigImpl
+
+-- Reorder.Group
+foreign import reorderGroupImpl ∷ ∀ attrs. ReactComponent { | attrs }
+
+reorderGroup
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ ReorderGroupProps
+  => ReactComponent { | attrs }
+reorderGroup = reorderGroupImpl
+
+-- Reorder.Item
+foreign import reorderItemImpl ∷ ∀ attrs. ReactComponent { | attrs }
+
+reorderItem
+  ∷ ∀ attrs attrs_
+   . Union attrs attrs_ ReorderItemProps
+  => ReactComponent { | attrs }
+reorderItem = reorderItemImpl
