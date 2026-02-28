@@ -283,25 +283,41 @@ useReducedMotionDemo = unsafeCoerce useReducedMotionDemo_
 useReducedMotionDemo_ ∷ Effect (Unit → JSX)
 useReducedMotionDemo_ = component "UseReducedMotionDemo" \_ -> React.do
   prefersReduced <- Hook.useReducedMotion
-  let label = case unsafeCoerce prefersReduced of
-        true → "prefers-reduced-motion: yes"
-        _ → "prefers-reduced-motion: no"
+  let
+    reduced = (unsafeCoerce prefersReduced) == true
+    label = if reduced then "reduced motion: ON — animation would be disabled"
+            else "reduced motion: OFF — animations play normally"
   pure $ R.div_
     [ R.div
         { style: R.css { fontSize: "14px", marginBottom: "12px", fontFamily: "monospace" }
         , children: [ R.text label ]
         }
-    , Motion.div
-        { style: Yoga.css
-            { width: "80px"
-            , height: "80px"
-            , borderRadius: "12px"
-            , background: "linear-gradient(135deg, #43e97b, #38f9d7)"
-            }
-        , animate: M.animate $ Yoga.css { x: 200.0 }
-        , transition: M.transition { type: "spring", repeat: unsafeToForeign M.infinity, repeatType: "reverse" }
-        }
-        ([] ∷ Array JSX)
+    , if reduced
+        then R.div
+          { style: R.css
+              { width: "80px"
+              , height: "80px"
+              , borderRadius: "12px"
+              , background: "linear-gradient(135deg, #43e97b, #38f9d7)"
+              , display: "flex"
+              , alignItems: "center"
+              , justifyContent: "center"
+              , fontSize: "11px"
+              , color: "#333"
+              }
+          , children: [ R.text "static" ]
+          }
+        else Motion.div
+          { style: Yoga.css
+              { width: "80px"
+              , height: "80px"
+              , borderRadius: "12px"
+              , background: "linear-gradient(135deg, #43e97b, #38f9d7)"
+              }
+          , animate: M.animate $ Yoga.css { x: 200.0 }
+          , transition: M.transition { type: "spring", repeat: unsafeToForeign M.infinity, repeatType: "reverse" }
+          }
+          ([] ∷ Array JSX)
     ]
 
 ------------------------------------------------------------------------
@@ -341,27 +357,32 @@ useScrollDemo_ ∷ Effect (Unit → JSX)
 useScrollDemo_ = component "UseScrollDemo" \_ -> React.do
   containerRef ← React.useRef null
   { scrollYProgress } <- unsafeUseScroll { container: containerRef }
-  let
-    springOpts ∷ Hook.SpringProps
-    springOpts =
-        { stiffness: cast 100, damping: cast 30, restDelta: cast 0.001
-        , from: cast undefined, to: cast undefined, mass: cast undefined
-        , velocity: cast undefined, restSpeed: cast undefined
-        }
-  scaleX <- Hook.useSpringWithMotionValue scrollYProgress springOpts
+  -- Map 0..1 progress to percentage string for width
+  widthPct <- Hook.useTransformMap scrollYProgress \p ->
+    show (max 2.0 (p * 100.0)) <> "%"
   pure $ R.div_
-    [ -- Progress bar
-      Motion.div
-        { style: Yoga.css
-            { scaleX
-            , transformOrigin: "left"
-            , height: "6px"
+    [ -- Progress bar (background track)
+      R.div
+        { style: R.css
+            { height: "6px"
             , borderRadius: "3px"
-            , background: "linear-gradient(90deg, #667eea, #764ba2)"
+            , background: "#e0e0e8"
             , marginBottom: "12px"
+            , overflow: "hidden"
             }
+        , children:
+            [ -- Fill bar driven by scroll
+              Motion.div
+                { style: Yoga.css
+                    { width: widthPct
+                    , height: "6px"
+                    , borderRadius: "3px"
+                    , background: "linear-gradient(90deg, #667eea, #764ba2)"
+                    }
+                }
+                ([] ∷ Array JSX)
+            ]
         }
-        ([] ∷ Array JSX)
     -- Scrollable container
     , R.div
         { ref: containerRef
