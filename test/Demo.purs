@@ -338,7 +338,8 @@ useScrollDemo = unsafeCoerce useScrollDemo_
 
 useScrollDemo_ ∷ Effect (Unit → JSX)
 useScrollDemo_ = component "UseScrollDemo" \_ -> React.do
-  { scrollYProgress } <- Hook.useScroll {}
+  containerRef ← React.useRef null
+  { scrollYProgress } <- Hook.useScroll { container: cast containerRef }
   let
     springOpts ∷ Hook.SpringProps
     springOpts =
@@ -347,20 +348,41 @@ useScrollDemo_ = component "UseScrollDemo" \_ -> React.do
         , velocity: cast undefined, restSpeed: cast undefined
         }
   scaleX <- Hook.useSpringWithMotionValue scrollYProgress springOpts
-  pure $ Motion.div
-    { style: Yoga.css
-        { scaleX
-        , transformOrigin: "left"
-        , position: "fixed"
-        , top: "0"
-        , left: "0"
-        , right: "0"
-        , height: "4px"
-        , background: "linear-gradient(90deg, #667eea, #764ba2)"
-        , zIndex: "9999"
+  pure $ R.div_
+    [ -- Progress bar
+      Motion.div
+        { style: Yoga.css
+            { scaleX
+            , transformOrigin: "left"
+            , height: "6px"
+            , borderRadius: "3px"
+            , background: "linear-gradient(90deg, #667eea, #764ba2)"
+            , marginBottom: "12px"
+            }
         }
-    }
-    ([] ∷ Array JSX)
+        ([] ∷ Array JSX)
+    -- Scrollable container
+    , R.div
+        { ref: containerRef
+        , style: R.css
+            { height: "200px"
+            , overflowY: "scroll"
+            , borderRadius: "8px"
+            , border: "1px solid #e0e0e8"
+            , padding: "16px"
+            }
+        , children: (1 .. 20) <#> \i ->
+            R.div
+              { key: show i
+              , style: R.css { padding: "12px 0", borderBottom: "1px solid #f0f0f4" }
+              , children: [ R.text ("Scroll item " <> show i) ]
+              }
+        }
+    , R.div
+        { style: R.css { fontSize: "13px", color: "#888", marginTop: "8px" }
+        , children: [ R.text "Scroll the container above — the purple bar tracks progress" ]
+        }
+    ]
 
 ------------------------------------------------------------------------
 -- 9. LazyMotion
