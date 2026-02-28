@@ -1,7 +1,9 @@
-import { domAnimation, motion } from "motion/react"
+import { domAnimation, motion, useScroll } from "motion/react"
 import React from "react"
 
 export { domAnimation }
+
+export const useScrollRawImpl = (opts) => useScroll(opts)
 
 export const motionDivWithDragControls = controls => children =>
   React.createElement(motion.div, {

@@ -7,6 +7,7 @@ import Data.Maybe (Maybe(..))
 import Data.Nullable (null)
 import Effect (Effect)
 import Effect.Class.Console as Console
+import Effect.Uncurried as Effect.Uncurried
 import Effect.Uncurried (mkEffectFn1)
 import Foreign (unsafeToForeign)
 import Framer.Motion as M
@@ -18,7 +19,7 @@ import MotionValue as MV
 import React.Basic (JSX)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
-import React.Basic.Hooks (component, element, (/\))
+import React.Basic.Hooks (Hook, component, element, unsafeHook, (/\))
 import React.Basic.Hooks as React
 import Untagged.Castable (cast)
 import Unsafe.Coerce (unsafeCoerce)
@@ -339,7 +340,7 @@ useScrollDemo = unsafeCoerce useScrollDemo_
 useScrollDemo_ ∷ Effect (Unit → JSX)
 useScrollDemo_ = component "UseScrollDemo" \_ -> React.do
   containerRef ← React.useRef null
-  { scrollYProgress } <- Hook.useScroll { container: cast containerRef }
+  { scrollYProgress } <- unsafeUseScroll { container: containerRef }
   let
     springOpts ∷ Hook.SpringProps
     springOpts =
@@ -399,6 +400,12 @@ lazyMotionDemo _ = element M.lazyMotion
   }
 
 foreign import motionDivWithDragControls ∷ Types.DragControls → Array JSX → JSX
+
+-- Bypass Union constraint for demo — calls useScroll FFI directly
+foreign import useScrollRawImpl ∷ ∀ opts. Effect.Uncurried.EffectFn1 opts Hook.ViewportScrollValues
+
+unsafeUseScroll ∷ ∀ opts. opts → Hook (Hook.UseScroll) (Hook.ViewportScrollValues)
+unsafeUseScroll opts = unsafeHook (Effect.Uncurried.runEffectFn1 useScrollRawImpl opts)
 
 foreign import domAnimation ∷ ∀ a. a
 
