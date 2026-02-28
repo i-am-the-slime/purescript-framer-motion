@@ -563,25 +563,24 @@ reorderDemo_ = component "ReorderDemo" \_ -> React.do
           { key: item
           , value: unsafeToForeign item
           , children:
-              [ R.div
-                  { style: R.css
-                      { padding: "12px 16px"
-                      , marginBottom: "4px"
-                      , borderRadius: "8px"
-                      , background: "white"
-                      , border: "1px solid #e0e0e8"
-                      , cursor: "grab"
-                      , display: "flex"
-                      , alignItems: "center"
-                      , gap: "8px"
-                      , userSelect: "none"
-                      }
-                  , children:
-                      [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
-                      , R.text item
-                      ]
-                  }
-              ]
+              R.div
+                { style: R.css
+                    { padding: "12px 16px"
+                    , marginBottom: "4px"
+                    , borderRadius: "8px"
+                    , background: "white"
+                    , border: "1px solid #e0e0e8"
+                    , cursor: "grab"
+                    , display: "flex"
+                    , alignItems: "center"
+                    , gap: "8px"
+                    , userSelect: "none"
+                    }
+                , children:
+                    [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
+                    , R.text item
+                    ]
+                }
           }
     }
 

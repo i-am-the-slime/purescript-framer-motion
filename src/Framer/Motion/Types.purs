@@ -457,5 +457,5 @@ type ReorderGroupProps =
 type ReorderItemProps =
   ( value ∷ Foreign
   , layout ∷ Boolean |+| String |+| Undefined
-  , children ∷ Array JSX
+  , children ∷ JSX
   )

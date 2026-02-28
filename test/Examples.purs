@@ -428,7 +428,7 @@ mkReorderExample = component "ReorderExample" \_ -> React.do
     , children: items <#> \item ->
         element M.reorderItem
           { value: unsafeToForeign item
-          , children: [ R.text item ]
+          , children: R.text item
           }
     }
 
@@ -443,7 +443,7 @@ mkReorderHorizontalExample = component "ReorderHorizontal" \_ -> React.do
     , children: items <#> \item ->
         element M.reorderItem
           { value: unsafeToForeign item
-          , children: [ R.text (show item) ]
+          , children: R.text (show item)
           }
     }
 
