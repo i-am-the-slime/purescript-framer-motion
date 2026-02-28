@@ -1,4 +1,4 @@
-import { domAnimation, motion, useScroll, Reorder } from "motion/react"
+import { domAnimation, motion, useScroll } from "motion/react"
 import React from "react"
 
 export { domAnimation }
@@ -25,32 +25,3 @@ export const setTextContent = ref => text => () => {
   if (ref.current) ref.current.textContent = text
 }
 
-export const reorderList = ({ items, onReorder }) =>
-  React.createElement(Reorder.Group, {
-    axis: "y",
-    values: items,
-    onReorder: (newOrder) => onReorder(newOrder),
-    style: { listStyle: "none", padding: 0, margin: 0 },
-  },
-    items.map(item =>
-      React.createElement(Reorder.Item, {
-        key: item,
-        value: item,
-        style: {
-          padding: "12px 16px",
-          marginBottom: "4px",
-          borderRadius: "8px",
-          background: "white",
-          border: "1px solid #e0e0e8",
-          cursor: "grab",
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-          userSelect: "none",
-        },
-      },
-        React.createElement("span", { style: { color: "#aaa" } }, "⠿"),
-        item
-      )
-    )
-  )

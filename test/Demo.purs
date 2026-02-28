@@ -19,6 +19,7 @@ import MotionValue as MV
 import React.Basic (JSX)
 import React.Basic.DOM as R
 import React.Basic.DOM.Client (createRoot, renderRoot)
+import React.Basic (elementKeyed)
 import React.Basic.Hooks (Hook, component, element, unsafeHook, (/\))
 import React.Basic.Hooks as React
 import Untagged.Castable (cast)
@@ -417,10 +418,23 @@ lazyMotionDemo ∷ Unit → JSX
 lazyMotionDemo _ = element M.lazyMotion
   { features: unsafeToForeign domAnimation
   , children:
-      [ R.div
-          { style: R.css { fontSize: "14px", fontFamily: "monospace" }
-          , children: [ R.text "Wrapped in <LazyMotion features={domAnimation}>" ]
-          }
+      [ R.div_
+          [ R.p
+              { style: R.css { fontSize: "13px", fontFamily: "monospace", marginBottom: "12px" }
+              , children: [ R.text "<LazyMotion features={domAnimation}> wraps the animation below, reducing initial bundle to ~6kb" ]
+              }
+          , Motion.div
+              { style: Yoga.css
+                  { width: "60px"
+                  , height: "60px"
+                  , borderRadius: "12px"
+                  , background: "linear-gradient(135deg, #667eea, #764ba2)"
+                  }
+              , animate: M.animate $ Yoga.css { rotate: 360.0 }
+              , transition: M.transition { duration: 2.0, repeat: unsafeToForeign M.infinity, ease: "linear" }
+              }
+              ([] ∷ Array JSX)
+          ]
       ]
   }
 
@@ -540,12 +554,36 @@ reorderDemo = unsafeCoerce reorderDemo_
 reorderDemo_ ∷ Effect (Unit → JSX)
 reorderDemo_ = component "ReorderDemo" \_ -> React.do
   items /\ setItems <- React.useState' [ "Apples", "Bananas", "Cherries", "Dates", "Elderberries" ]
-  pure $ reorderList
-    { items
+  pure $ element M.reorderGroup
+    { axis: "y"
+    , values: unsafeToForeign <$> items
     , onReorder: mkEffectFn1 \newItems -> setItems (unsafeCoerce newItems)
+    , children: items <#> \item ->
+        elementKeyed M.reorderItem
+          { key: item
+          , value: unsafeToForeign item
+          , children:
+              [ R.div
+                  { style: R.css
+                      { padding: "12px 16px"
+                      , marginBottom: "4px"
+                      , borderRadius: "8px"
+                      , background: "white"
+                      , border: "1px solid #e0e0e8"
+                      , cursor: "grab"
+                      , display: "flex"
+                      , alignItems: "center"
+                      , gap: "8px"
+                      , userSelect: "none"
+                      }
+                  , children:
+                      [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
+                      , R.text item
+                      ]
+                  }
+              ]
+          }
     }
-
-foreign import reorderList ∷ ∀ r. r → JSX
 
 ------------------------------------------------------------------------
 -- 13. onAnimationCancel
