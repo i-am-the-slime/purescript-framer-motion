@@ -122,3 +122,43 @@ in  upstream
     , repo = "https://github.com/i-am-the-slime/purescript-react-testing-library.git"
     , version = "main"
     }
+  with forgetmenot =
+    { dependencies = [] : List Text
+    , repo = "https://github.com/rowtype-yoga/purescript-forgetmenot.git"
+    , version = "v0.1.0"
+    }
+  with web-touchevents =
+    { dependencies =
+        [ "functions"
+        , "maybe"
+        , "nullable"
+        , "prelude"
+        , "unsafe-coerce"
+        , "web-events"
+        , "web-uievents"
+        ]
+    , repo = "https://github.com/purescript-web/purescript-web-touchevents.git"
+    , version = "v4.0.0"
+    }
+  with yoga-react-dom =
+    { dependencies =
+        [ "datetime"
+        , "effect"
+        , "forgetmenot"
+        , "functions"
+        , "nullable"
+        , "prelude"
+        , "react-basic"
+        , "react-basic-hooks"
+        , "record"
+        , "type-equality"
+        , "typelevel-prelude"
+        , "unsafe-coerce"
+        , "web-dom"
+        , "web-events"
+        , "web-html"
+        , "web-touchevents"
+        ]
+    , repo = "https://github.com/rowtype-yoga/purescript-yoga-react-dom.git"
+    , version = "v1.0.3"
+    }

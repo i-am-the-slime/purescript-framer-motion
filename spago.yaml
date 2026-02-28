@@ -1,0 +1,73 @@
+package:
+  name: react-motion
+  dependencies:
+    - aff
+    - aff-promise
+    - arrays
+    - effect
+    - foreign
+    - foreign-object
+    - heterogeneous
+    - literals
+    - maybe
+    - nullable
+    - prelude
+    - react-basic
+    - react-basic-hooks
+    - record
+    - tuples
+    - two-or-more
+    - typelevel-prelude
+    - unsafe-coerce
+    - untagged-union
+    - web-dom
+    - web-events
+    - web-uievents
+    - yoga-react-dom
+  test:
+    main: Test.Main
+    dependencies:
+      - spec
+      - react-basic-dom
+      - react-testing-library
+workspace:
+  packageSet:
+    registry: 51.2.0
+  extraPackages:
+    react-testing-library:
+      git: https://github.com/i-am-the-slime/purescript-react-testing-library.git
+      ref: main
+      dependencies:
+        - aff
+        - aff-promise
+        - console
+        - effect
+        - exceptions
+        - foldable-traversable
+        - foreign
+        - maybe
+        - prelude
+        - react-basic
+        - react-basic-dom
+        - react-basic-hooks
+        - web-html
+    yoga-react-dom:
+      git: https://github.com/rowtype-yoga/purescript-yoga-react-dom.git
+      ref: v1.0.3
+      dependencies:
+        - datetime
+        - effect
+        - forgetmenot
+        - functions
+        - nullable
+        - prelude
+        - react-basic
+        - react-basic-hooks
+        - record
+        - type-equality
+        - typelevel-prelude
+        - unsafe-coerce
+        - web-dom
+        - web-events
+        - web-html
+        - web-touchevents

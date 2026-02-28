@@ -1,1010 +1,382 @@
 module Framer.Motion.MotionComponent where
 
 import Effect (Effect)
+import Framer.Motion.Attributes (MotionBaseAttributes)
 import Framer.Motion.Types (MotionProps)
-import Prim.Row (class Union)
-import React.Basic (ReactComponent)
-import React.Basic.DOM as DOM
-import React.Basic.DOM.Internal (SharedSVGProps)
-import React.Basic.DOM.SVG as SVG
-import Type.Row (type (+))
+import React.Basic (JSX, ReactComponent)
+import Yoga.React.DOM.Internal (FFIComponent, FFIComponent_)
 
-foreign import mkMotionComponentImpl ∷ ∀ a. String -> Effect (ReactComponent { | a })
+foreign import createMotionElement ∷ ∀ props kids. String -> props -> kids -> JSX
+foreign import createMotionElement_ ∷ ∀ props. String -> props -> JSX
 
 foreign import custom
   ∷ ∀ old
    . ReactComponent { | old }
   -> Effect (ReactComponent { | MotionProps old })
 
--- DOM
--- abbr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_abbr) => ReactComponent { | attrs }
--- abbr = unsafePerformEffect $ mkMotionComponentImpl "abbr"
+-- HTML elements
 
--- addressImpl ∷ ∀ attrs. ReactComponent { | attrs }
--- addressImpl = unsafePerformEffect $ mkMotionComponentImpl "address"
+a ∷ FFIComponent MotionBaseAttributes
+a = createMotionElement "a"
 
--- address ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_address) => ReactComponent { | attrs }
--- address = addressImpl
+a_ ∷ FFIComponent_ MotionBaseAttributes
+a_ = createMotionElement_ "a"
 
--- areaImpl ∷ ∀ a. ReactComponent (Record a)
--- areaImpl = unsafePerformEffect $ mkMotionComponentImpl "area"
+abbr ∷ FFIComponent MotionBaseAttributes
+abbr = createMotionElement "abbr"
 
--- area ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_area) => ReactComponent { | attrs }
--- area = areaImpl
+address ∷ FFIComponent MotionBaseAttributes
+address = createMotionElement "address"
 
--- articleImpl ∷ ∀ t977. ReactComponent (Record t977)
--- articleImpl = unsafePerformEffect $ mkMotionComponentImpl "article"
+area ∷ FFIComponent_ MotionBaseAttributes
+area = createMotionElement_ "area"
 
--- article ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_article) => ReactComponent { | attrs }
--- article = articleImpl
+article ∷ FFIComponent MotionBaseAttributes
+article = createMotionElement "article"
 
--- asideImpl :: forall a. ReactComponent (Record a)
--- asideImpl = unsafePerformEffect $ mkMotionComponentImpl "aside"
+aside ∷ FFIComponent MotionBaseAttributes
+aside = createMotionElement "aside"
 
--- aside ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_aside) => ReactComponent { | attrs }
--- aside = asideImpl
--- audioImpl :: forall a. ReactComponent (Record a)
--- audioImpl = unsafePerformEffect $ mkMotionComponentImpl "audio"
+audio ∷ FFIComponent MotionBaseAttributes
+audio = createMotionElement "audio"
 
--- audio ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_audio) => ReactComponent { | attrs }
--- audio = audioImpl
+b ∷ FFIComponent MotionBaseAttributes
+b = createMotionElement "b"
 
--- bImpl :: forall a. ReactComponent (Record a)
--- bImpl = unsafePerformEffect $ mkMotionComponentImpl "b"
+blockquote ∷ FFIComponent MotionBaseAttributes
+blockquote = createMotionElement "blockquote"
 
--- b ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_b) => ReactComponent { | attrs }
--- b = bImpl
+br ∷ FFIComponent_ MotionBaseAttributes
+br = createMotionElement_ "br"
 
--- baseImpl :: forall a. ReactComponent {|a}
--- baseImpl = unsafePerformEffect $ mkMotionComponentImpl "base"
+button ∷ FFIComponent MotionBaseAttributes
+button = createMotionElement "button"
 
--- base ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_base) => ReactComponent { | attrs }
--- base = baseImpl
+button_ ∷ FFIComponent_ MotionBaseAttributes
+button_ = createMotionElement_ "button"
 
--- bdiImpl :: forall a. ReactComponent {|a}
--- bdiImpl = unsafePerformEffect $ mkMotionComponentImpl "bdi"
+canvas ∷ FFIComponent MotionBaseAttributes
+canvas = createMotionElement "canvas"
 
--- bdi ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_bdi) => ReactComponent { | attrs }
--- bdi = bdiImpl
+caption ∷ FFIComponent MotionBaseAttributes
+caption = createMotionElement "caption"
 
--- bdoImpl :: forall a. ReactComponent {|a}
--- bdoImpl = unsafePerformEffect $ mkMotionComponentImpl "bdo"
+cite ∷ FFIComponent MotionBaseAttributes
+cite = createMotionElement "cite"
 
--- bdo ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_bdo) => ReactComponent { | attrs }
--- bdo = bdoImpl
+code ∷ FFIComponent MotionBaseAttributes
+code = createMotionElement "code"
 
--- -- No support in React Basic Hooks
--- -- big :: forall attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_big) => ReactComponent { | attrs }
+col ∷ FFIComponent_ MotionBaseAttributes
+col = createMotionElement_ "col"
 
--- blockquoteImpl :: forall a. ReactComponent {|a}
--- blockquoteImpl = unsafePerformEffect $ mkMotionComponentImpl "blockquote"
+colgroup ∷ FFIComponent MotionBaseAttributes
+colgroup = createMotionElement "colgroup"
 
--- blockquote ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_blockquote) => ReactComponent { | attrs }
--- blockquote = blockquoteImpl
+datalist ∷ FFIComponent MotionBaseAttributes
+datalist = createMotionElement "datalist"
 
--- bodyImpl :: forall a. ReactComponent {|a}
--- bodyImpl = unsafePerformEffect $ mkMotionComponentImpl "body"
+dd ∷ FFIComponent MotionBaseAttributes
+dd = createMotionElement "dd"
 
--- body ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_body) => ReactComponent { | attrs }
--- body = bodyImpl
+del ∷ FFIComponent MotionBaseAttributes
+del = createMotionElement "del"
 
--- brImpl :: forall a. ReactComponent {|a}
--- brImpl = unsafePerformEffect $ mkMotionComponentImpl "br"
+details ∷ FFIComponent MotionBaseAttributes
+details = createMotionElement "details"
 
--- br ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_br) => ReactComponent { | attrs }
--- br = brImpl
+dfn ∷ FFIComponent MotionBaseAttributes
+dfn = createMotionElement "dfn"
 
-foreign import buttonImpl :: forall a. ReactComponent { | a }
+dialog ∷ FFIComponent MotionBaseAttributes
+dialog = createMotionElement "dialog"
 
-button ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_button) => ReactComponent { | attrs }
-button = buttonImpl
+div ∷ FFIComponent MotionBaseAttributes
+div = createMotionElement "div"
 
--- canvasImpl :: forall a. ReactComponent {|a}
--- canvasImpl = unsafePerformEffect $ mkMotionComponentImpl "canvas"
+div_ ∷ FFIComponent_ MotionBaseAttributes
+div_ = createMotionElement_ "div"
 
--- canvas ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_canvas) => ReactComponent { | attrs }
--- canvas = canvasImpl
+dl ∷ FFIComponent MotionBaseAttributes
+dl = createMotionElement "dl"
 
--- captionImpl :: forall a. ReactComponent {|a}
--- captionImpl = unsafePerformEffect $ mkMotionComponentImpl "caption"
+dt ∷ FFIComponent MotionBaseAttributes
+dt = createMotionElement "dt"
 
--- caption ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_caption) => ReactComponent { | attrs }
--- caption = captionImpl
+em ∷ FFIComponent MotionBaseAttributes
+em = createMotionElement "em"
 
--- citeImpl :: forall a. ReactComponent {|a}
--- citeImpl = unsafePerformEffect $ mkMotionComponentImpl "cite"
+embed ∷ FFIComponent_ MotionBaseAttributes
+embed = createMotionElement_ "embed"
 
--- cite ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_cite) => ReactComponent { | attrs }
--- cite = citeImpl
+fieldset ∷ FFIComponent MotionBaseAttributes
+fieldset = createMotionElement "fieldset"
 
--- codeImpl :: forall a. ReactComponent {|a}
--- codeImpl = unsafePerformEffect $ mkMotionComponentImpl "code"
+figcaption ∷ FFIComponent MotionBaseAttributes
+figcaption = createMotionElement "figcaption"
 
--- code ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_code) => ReactComponent { | attrs }
--- code = codeImpl
+figure ∷ FFIComponent MotionBaseAttributes
+figure = createMotionElement "figure"
 
--- colImpl :: forall a. ReactComponent {|a}
--- colImpl = unsafePerformEffect $ mkMotionComponentImpl "col"
+footer ∷ FFIComponent MotionBaseAttributes
+footer = createMotionElement "footer"
 
--- colImplImpl :: forall a. ReactComponent {|a}
--- colImplImpl = colImpl
+form ∷ FFIComponent MotionBaseAttributes
+form = createMotionElement "form"
 
--- col ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_col) => ReactComponent { | attrs }
--- col = colImpl
+h1 ∷ FFIComponent MotionBaseAttributes
+h1 = createMotionElement "h1"
 
--- colgroupImpl :: forall a. ReactComponent {|a}
--- colgroupImpl = unsafePerformEffect $ mkMotionComponentImpl "colgroup"
+h2 ∷ FFIComponent MotionBaseAttributes
+h2 = createMotionElement "h2"
 
--- colgroup ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_colgroup) => ReactComponent { | attrs }
--- colgroup = colgroupImpl
+h3 ∷ FFIComponent MotionBaseAttributes
+h3 = createMotionElement "h3"
 
--- _data ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_data) => ReactComponent { | attrs }
--- _data = unsafePerformEffect $ mkMotionComponentImpl "data"
+h4 ∷ FFIComponent MotionBaseAttributes
+h4 = createMotionElement "h4"
 
--- datalistImpl :: forall a. ReactComponent {|a}
--- datalistImpl = unsafePerformEffect $ mkMotionComponentImpl "datalist"
+h5 ∷ FFIComponent MotionBaseAttributes
+h5 = createMotionElement "h5"
 
--- datalist ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_datalist) => ReactComponent { | attrs }
--- datalist = datalistImpl
+h6 ∷ FFIComponent MotionBaseAttributes
+h6 = createMotionElement "h6"
 
--- ddImpl :: forall a. ReactComponent {|a}
--- ddImpl = unsafePerformEffect $ mkMotionComponentImpl "dd"
+header ∷ FFIComponent MotionBaseAttributes
+header = createMotionElement "header"
 
--- dd ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_dd) => ReactComponent { | attrs }
--- dd = ddImpl
+hgroup ∷ FFIComponent MotionBaseAttributes
+hgroup = createMotionElement "hgroup"
 
--- delImpl :: forall a. ReactComponent {|a}
--- delImpl = unsafePerformEffect $ mkMotionComponentImpl "del"
+hr ∷ FFIComponent_ MotionBaseAttributes
+hr = createMotionElement_ "hr"
 
--- del ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_del) => ReactComponent { | attrs }
--- del = delImpl
+i ∷ FFIComponent MotionBaseAttributes
+i = createMotionElement "i"
 
--- detailsImpl :: forall a. ReactComponent {|a}
--- detailsImpl = unsafePerformEffect $ mkMotionComponentImpl "details"
+iframe ∷ FFIComponent MotionBaseAttributes
+iframe = createMotionElement "iframe"
 
--- details ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_details) => ReactComponent { | attrs }
--- details = detailsImpl
+img ∷ FFIComponent_ MotionBaseAttributes
+img = createMotionElement_ "img"
 
--- dfnImpl :: forall a. ReactComponent {|a}
--- dfnImpl = unsafePerformEffect $ mkMotionComponentImpl "dfn"
+input ∷ FFIComponent_ MotionBaseAttributes
+input = createMotionElement_ "input"
 
--- dfn ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_dfn) => ReactComponent { | attrs }
--- dfn = dfnImpl
+ins ∷ FFIComponent MotionBaseAttributes
+ins = createMotionElement "ins"
 
--- dialogImpl :: forall a. ReactComponent {|a}
--- dialogImpl = unsafePerformEffect $ mkMotionComponentImpl "dialog"
+kbd ∷ FFIComponent MotionBaseAttributes
+kbd = createMotionElement "kbd"
 
--- dialog ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_dialog) => ReactComponent { | attrs }
--- dialog = dialogImpl
+label ∷ FFIComponent MotionBaseAttributes
+label = createMotionElement "label"
 
-foreign import divImpl ∷ ∀ props. ReactComponent { | props }
+legend ∷ FFIComponent MotionBaseAttributes
+legend = createMotionElement "legend"
 
-div ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_div) => ReactComponent { | attrs }
-div = divImpl
+li ∷ FFIComponent MotionBaseAttributes
+li = createMotionElement "li"
 
--- dlImpl :: forall a. ReactComponent {|a}
--- dlImpl = unsafePerformEffect $ mkMotionComponentImpl "dl"
+li_ ∷ FFIComponent_ MotionBaseAttributes
+li_ = createMotionElement_ "li"
 
--- dl ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_dl) => ReactComponent { | attrs }
--- dl = dlImpl
+main ∷ FFIComponent MotionBaseAttributes
+main = createMotionElement "main"
 
--- dtImpl :: forall a. ReactComponent {|a}
--- dtImpl = unsafePerformEffect $ mkMotionComponentImpl "dt"
+mark ∷ FFIComponent MotionBaseAttributes
+mark = createMotionElement "mark"
 
--- dt ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_dt) => ReactComponent { | attrs }
--- dt = dtImpl
+menu ∷ FFIComponent MotionBaseAttributes
+menu = createMotionElement "menu"
 
--- emImpl :: forall a. ReactComponent {|a}
--- emImpl = unsafePerformEffect $ mkMotionComponentImpl "em"
+meter ∷ FFIComponent MotionBaseAttributes
+meter = createMotionElement "meter"
 
--- em ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_em) => ReactComponent { | attrs }
--- em = emImpl
+nav ∷ FFIComponent MotionBaseAttributes
+nav = createMotionElement "nav"
 
--- embedImpl :: forall a. ReactComponent {|a}
--- embedImpl = unsafePerformEffect $ mkMotionComponentImpl "embed"
+ol ∷ FFIComponent MotionBaseAttributes
+ol = createMotionElement "ol"
 
--- embed ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_embed) => ReactComponent { | attrs }
--- embed = embedImpl
+optgroup ∷ FFIComponent MotionBaseAttributes
+optgroup = createMotionElement "optgroup"
 
--- fieldsetImpl :: forall a. ReactComponent {|a}
--- fieldsetImpl = unsafePerformEffect $ mkMotionComponentImpl "fieldset"
+option ∷ FFIComponent MotionBaseAttributes
+option = createMotionElement "option"
 
--- fieldset ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_fieldset) => ReactComponent { | attrs }
--- fieldset = fieldsetImpl
+output ∷ FFIComponent MotionBaseAttributes
+output = createMotionElement "output"
 
--- figcaptionImpl :: forall a. ReactComponent {|a}
--- figcaptionImpl = unsafePerformEffect $ mkMotionComponentImpl "figcaption"
+p ∷ FFIComponent MotionBaseAttributes
+p = createMotionElement "p"
 
--- figcaption ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_figcaption) => ReactComponent { | attrs }
--- figcaption = figcaptionImpl
+picture ∷ FFIComponent MotionBaseAttributes
+picture = createMotionElement "picture"
 
--- figureImpl :: forall a. ReactComponent {|a}
--- figureImpl = unsafePerformEffect $ mkMotionComponentImpl "figure"
+pre ∷ FFIComponent MotionBaseAttributes
+pre = createMotionElement "pre"
 
--- figure ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_figure) => ReactComponent { | attrs }
--- figure = figureImpl
+progress ∷ FFIComponent MotionBaseAttributes
+progress = createMotionElement "progress"
 
--- footerImpl :: forall a. ReactComponent {|a}
--- footerImpl = unsafePerformEffect $ mkMotionComponentImpl "footer"
+q ∷ FFIComponent MotionBaseAttributes
+q = createMotionElement "q"
 
--- footer ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_footer) => ReactComponent { | attrs }
--- footer = footerImpl
+rp ∷ FFIComponent MotionBaseAttributes
+rp = createMotionElement "rp"
 
--- formImpl :: forall a. ReactComponent {|a}
--- formImpl = unsafePerformEffect $ mkMotionComponentImpl "form"
+rt ∷ FFIComponent MotionBaseAttributes
+rt = createMotionElement "rt"
 
--- form ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_form) => ReactComponent { | attrs }
--- form = formImpl
+ruby ∷ FFIComponent MotionBaseAttributes
+ruby = createMotionElement "ruby"
 
--- h1Impl :: forall a. ReactComponent {|a}
--- h1Impl = unsafePerformEffect $ mkMotionComponentImpl "h1"
+s ∷ FFIComponent MotionBaseAttributes
+s = createMotionElement "s"
 
--- h1 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h1) => ReactComponent { | attrs }
--- h1 = h1Impl
+samp ∷ FFIComponent MotionBaseAttributes
+samp = createMotionElement "samp"
 
--- h2Impl :: forall a. ReactComponent {|a}
--- h2Impl = unsafePerformEffect $ mkMotionComponentImpl "h2"
+section ∷ FFIComponent MotionBaseAttributes
+section = createMotionElement "section"
 
--- h2 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h2) => ReactComponent { | attrs }
--- h2 = h2Impl
+select ∷ FFIComponent MotionBaseAttributes
+select = createMotionElement "select"
 
--- h3Impl :: forall a. ReactComponent {|a}
--- h3Impl = unsafePerformEffect $ mkMotionComponentImpl "h3"
+small ∷ FFIComponent MotionBaseAttributes
+small = createMotionElement "small"
 
--- h3 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h3) => ReactComponent { | attrs }
--- h3 = h3Impl
+source ∷ FFIComponent_ MotionBaseAttributes
+source = createMotionElement_ "source"
 
--- h4Impl :: forall a. ReactComponent {|a}
--- h4Impl = unsafePerformEffect $ mkMotionComponentImpl "h4"
+span ∷ FFIComponent MotionBaseAttributes
+span = createMotionElement "span"
 
--- h4 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h4) => ReactComponent { | attrs }
--- h4 = h4Impl
+span_ ∷ FFIComponent_ MotionBaseAttributes
+span_ = createMotionElement_ "span"
 
--- h5Impl :: forall a. ReactComponent {|a}
--- h5Impl = unsafePerformEffect $ mkMotionComponentImpl "h5"
+strong ∷ FFIComponent MotionBaseAttributes
+strong = createMotionElement "strong"
 
--- h5 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h5) => ReactComponent { | attrs }
--- h5 = h5Impl
+sub ∷ FFIComponent MotionBaseAttributes
+sub = createMotionElement "sub"
 
--- h6Impl :: forall a. ReactComponent {|a}
--- h6Impl = unsafePerformEffect $ mkMotionComponentImpl "h6"
+summary ∷ FFIComponent MotionBaseAttributes
+summary = createMotionElement "summary"
 
--- h6 ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_h6) => ReactComponent { | attrs }
--- h6 = h6Impl
+sup ∷ FFIComponent MotionBaseAttributes
+sup = createMotionElement "sup"
 
--- headImpl :: forall a. ReactComponent {|a}
--- headImpl = unsafePerformEffect $ mkMotionComponentImpl "head"
+table ∷ FFIComponent MotionBaseAttributes
+table = createMotionElement "table"
 
--- head ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_head) => ReactComponent { | attrs }
--- head = headImpl
+tbody ∷ FFIComponent MotionBaseAttributes
+tbody = createMotionElement "tbody"
 
--- headerImpl :: forall a. ReactComponent {|a}
--- headerImpl = unsafePerformEffect $ mkMotionComponentImpl "header"
+td ∷ FFIComponent MotionBaseAttributes
+td = createMotionElement "td"
 
--- header ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_header) => ReactComponent { | attrs }
--- header = headerImpl
+textarea ∷ FFIComponent MotionBaseAttributes
+textarea = createMotionElement "textarea"
 
--- hgroupImpl :: forall a. ReactComponent {|a}
--- hgroupImpl = unsafePerformEffect $ mkMotionComponentImpl "hgroup"
+tfoot ∷ FFIComponent MotionBaseAttributes
+tfoot = createMotionElement "tfoot"
 
--- hgroup ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_hgroup) => ReactComponent { | attrs }
--- hgroup = hgroupImpl
+th ∷ FFIComponent MotionBaseAttributes
+th = createMotionElement "th"
 
--- hrImpl :: forall a. ReactComponent {|a}
--- hrImpl = unsafePerformEffect $ mkMotionComponentImpl "hr"
+thead ∷ FFIComponent MotionBaseAttributes
+thead = createMotionElement "thead"
 
--- hr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_hr) => ReactComponent { | attrs }
--- hr = hrImpl
+time ∷ FFIComponent MotionBaseAttributes
+time = createMotionElement "time"
 
--- foreign import htmlImpl :: forall a. ReactComponent {|a}
+tr ∷ FFIComponent MotionBaseAttributes
+tr = createMotionElement "tr"
 
--- html ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_html) => ReactComponent { | attrs }
--- html = htmlImpl
+u ∷ FFIComponent MotionBaseAttributes
+u = createMotionElement "u"
 
--- iImpl :: forall a. ReactComponent {|a}
--- iImpl = unsafePerformEffect $ mkMotionComponentImpl "i"
+ul ∷ FFIComponent MotionBaseAttributes
+ul = createMotionElement "ul"
 
--- i ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_i) => ReactComponent { | attrs }
--- i = iImpl
+video ∷ FFIComponent MotionBaseAttributes
+video = createMotionElement "video"
 
--- iframeImpl :: forall a. ReactComponent {|a}
--- iframeImpl = unsafePerformEffect $ mkMotionComponentImpl "iframe"
+-- SVG elements
 
--- iframe ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_iframe) => ReactComponent { | attrs }
--- iframe = iframeImpl
+svg ∷ FFIComponent MotionBaseAttributes
+svg = createMotionElement "svg"
 
--- imgImpl :: forall a. ReactComponent {|a}
--- imgImpl = unsafePerformEffect $ mkMotionComponentImpl "img"
+svg_ ∷ FFIComponent_ MotionBaseAttributes
+svg_ = createMotionElement_ "svg"
 
--- img ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_img) => ReactComponent { | attrs }
--- img = imgImpl
+path ∷ FFIComponent MotionBaseAttributes
+path = createMotionElement "path"
 
-foreign import inputImpl :: forall a. ReactComponent { | a }
+path_ ∷ FFIComponent_ MotionBaseAttributes
+path_ = createMotionElement_ "path"
 
-input ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_input) => ReactComponent { | attrs }
-input = inputImpl
+g ∷ FFIComponent MotionBaseAttributes
+g = createMotionElement "g"
 
--- insImpl :: forall a. ReactComponent {|a}
--- insImpl = unsafePerformEffect $ mkMotionComponentImpl "ins"
+g_ ∷ FFIComponent_ MotionBaseAttributes
+g_ = createMotionElement_ "g"
 
--- ins ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_ins) => ReactComponent { | attrs }
--- ins = insImpl
+circle ∷ FFIComponent MotionBaseAttributes
+circle = createMotionElement "circle"
 
--- kbdImpl :: forall a. ReactComponent {|a}
--- kbdImpl = unsafePerformEffect $ mkMotionComponentImpl "kbd"
+clipPath ∷ FFIComponent MotionBaseAttributes
+clipPath = createMotionElement "clipPath"
 
--- kbd ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_kbd) => ReactComponent { | attrs }
--- kbd = kbdImpl
+defs ∷ FFIComponent MotionBaseAttributes
+defs = createMotionElement "defs"
 
--- keygenImpl :: forall a. ReactComponent {|a}
--- keygenImpl = unsafePerformEffect $ mkMotionComponentImpl "keygen"
+ellipse ∷ FFIComponent MotionBaseAttributes
+ellipse = createMotionElement "ellipse"
 
--- keygen ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_keygen) => ReactComponent { | attrs }
--- keygen = keygenImpl
+foreignObject ∷ FFIComponent MotionBaseAttributes
+foreignObject = createMotionElement "foreignObject"
 
--- labelImpl :: forall a. ReactComponent {|a}
--- labelImpl = unsafePerformEffect $ mkMotionComponentImpl "label"
+image ∷ FFIComponent_ MotionBaseAttributes
+image = createMotionElement_ "image"
 
--- label ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_label) => ReactComponent { | attrs }
--- label = labelImpl
+line ∷ FFIComponent MotionBaseAttributes
+line = createMotionElement "line"
 
--- legendImpl :: forall a. ReactComponent {|a}
--- legendImpl = unsafePerformEffect $ mkMotionComponentImpl "legend"
+linearGradient ∷ FFIComponent MotionBaseAttributes
+linearGradient = createMotionElement "linearGradient"
 
--- legend ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_legend) => ReactComponent { | attrs }
--- legend = legendImpl
+marker ∷ FFIComponent MotionBaseAttributes
+marker = createMotionElement "marker"
 
-foreign import liImpl :: forall a. ReactComponent { | a }
+mask ∷ FFIComponent MotionBaseAttributes
+mask = createMotionElement "mask"
 
-li ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_li) => ReactComponent { | attrs }
-li = liImpl
+polygon ∷ FFIComponent MotionBaseAttributes
+polygon = createMotionElement "polygon"
 
--- linkImpl :: forall a. ReactComponent {|a}
--- linkImpl = unsafePerformEffect $ mkMotionComponentImpl "link"
+polyline ∷ FFIComponent MotionBaseAttributes
+polyline = createMotionElement "polyline"
 
--- link ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_link) => ReactComponent { | attrs }
--- link = linkImpl
+radialGradient ∷ FFIComponent MotionBaseAttributes
+radialGradient = createMotionElement "radialGradient"
 
--- mainImpl :: forall a. ReactComponent {|a}
--- mainImpl = unsafePerformEffect $ mkMotionComponentImpl "main"
+rect ∷ FFIComponent MotionBaseAttributes
+rect = createMotionElement "rect"
 
--- main ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_main) => ReactComponent { | attrs }
--- main = mainImpl
+stop ∷ FFIComponent MotionBaseAttributes
+stop = createMotionElement "stop"
 
--- mapImpl :: forall a. ReactComponent {|a}
--- mapImpl = unsafePerformEffect $ mkMotionComponentImpl "map"
+text ∷ FFIComponent MotionBaseAttributes
+text = createMotionElement "text"
 
--- map ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_map) => ReactComponent { | attrs }
--- map = mapImpl
+textPath ∷ FFIComponent MotionBaseAttributes
+textPath = createMotionElement "textPath"
 
--- markImpl :: forall a. ReactComponent {|a}
--- markImpl = unsafePerformEffect $ mkMotionComponentImpl "mark"
+tspan ∷ FFIComponent MotionBaseAttributes
+tspan = createMotionElement "tspan"
 
--- mark ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_mark) => ReactComponent { | attrs }
--- mark = markImpl
-
--- menuImpl :: forall a. ReactComponent {|a}
--- menuImpl = unsafePerformEffect $ mkMotionComponentImpl "menu"
-
--- menu ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_menu) => ReactComponent { | attrs }
--- menu = menuImpl
-
--- menuitemImpl :: forall a. ReactComponent {|a}
--- menuitemImpl = unsafePerformEffect $ mkMotionComponentImpl "menuitem"
-
--- menuitem ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_menuitem) => ReactComponent { | attrs }
--- menuitem = menuitemImpl
-
--- metaImpl :: forall a. ReactComponent {|a}
--- metaImpl = unsafePerformEffect $ mkMotionComponentImpl "meta"
-
--- meta ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_meta) => ReactComponent { | attrs }
--- meta = metaImpl
-
--- meterImpl :: forall a. ReactComponent {|a}
--- meterImpl = unsafePerformEffect $ mkMotionComponentImpl "meter"
-
--- meter ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_meter) => ReactComponent { | attrs }
--- meter = meterImpl
-
--- navImpl :: forall a. ReactComponent {|a}
--- navImpl = unsafePerformEffect $ mkMotionComponentImpl "nav"
-
--- nav ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_nav) => ReactComponent { | attrs }
--- nav = navImpl
-
--- noscriptImpl :: forall a. ReactComponent {|a}
--- noscriptImpl = unsafePerformEffect $ mkMotionComponentImpl "noscript"
-
--- noscript ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_noscript) => ReactComponent { | attrs }
--- noscript = noscriptImpl
-
--- objectImpl :: forall a. ReactComponent {|a}
--- objectImpl = unsafePerformEffect $ mkMotionComponentImpl "object"
-
--- object ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_object) => ReactComponent { | attrs }
--- object = objectImpl
-
--- olImpl :: forall a. ReactComponent {|a}
--- olImpl = unsafePerformEffect $ mkMotionComponentImpl "ol"
-
--- ol ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_ol) => ReactComponent { | attrs }
--- ol = olImpl
-
--- optgroupImpl :: forall a. ReactComponent {|a}
--- optgroupImpl = unsafePerformEffect $ mkMotionComponentImpl "optgroup"
-
--- optgroup ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_optgroup) => ReactComponent { | attrs }
--- optgroup = optgroupImpl
-
--- optionImpl :: forall a. ReactComponent {|a}
--- optionImpl = unsafePerformEffect $ mkMotionComponentImpl "option"
-
--- option ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_option) => ReactComponent { | attrs }
--- option = optionImpl
-
--- outputImpl :: forall a. ReactComponent {|a}
--- outputImpl = unsafePerformEffect $ mkMotionComponentImpl "output"
-
--- output ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_output) => ReactComponent { | attrs }
--- output = outputImpl
-
--- pImpl :: forall a. ReactComponent {|a}
--- pImpl = unsafePerformEffect $ mkMotionComponentImpl "p"
-
--- p ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_p) => ReactComponent { | attrs }
--- p = pImpl
-
--- paramImpl :: forall a. ReactComponent {|a}
--- paramImpl = unsafePerformEffect $ mkMotionComponentImpl "param"
-
--- param ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_param) => ReactComponent { | attrs }
--- param = paramImpl
-
--- pictureImpl :: forall a. ReactComponent {|a}
--- pictureImpl = unsafePerformEffect $ mkMotionComponentImpl "picture"
-
--- picture ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_picture) => ReactComponent { | attrs }
--- picture = pictureImpl
-
--- preImpl :: forall a. ReactComponent {|a}
--- preImpl = unsafePerformEffect $ mkMotionComponentImpl "pre"
-
--- pre ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_pre) => ReactComponent { | attrs }
--- pre = preImpl
-
--- progressImpl :: forall a. ReactComponent {|a}
--- progressImpl = unsafePerformEffect $ mkMotionComponentImpl "progress"
-
--- progress ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_progress) => ReactComponent { | attrs }
--- progress = progressImpl
-
--- qImpl :: forall a. ReactComponent {|a}
--- qImpl = unsafePerformEffect $ mkMotionComponentImpl "q"
-
--- q ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_q) => ReactComponent { | attrs }
--- q = qImpl
-
--- rpImpl :: forall a. ReactComponent {|a}
--- rpImpl = unsafePerformEffect $ mkMotionComponentImpl "rp"
-
--- rp ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_rp) => ReactComponent { | attrs }
--- rp = rpImpl
-
--- rtImpl :: forall a. ReactComponent {|a}
--- rtImpl = unsafePerformEffect $ mkMotionComponentImpl "rt"
-
--- rt ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_rt) => ReactComponent { | attrs }
--- rt = rtImpl
-
--- rubyImpl :: forall a. ReactComponent {|a}
--- rubyImpl = unsafePerformEffect $ mkMotionComponentImpl "ruby"
-
--- ruby ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_ruby) => ReactComponent { | attrs }
--- ruby = rubyImpl
-
--- sImpl :: forall a. ReactComponent {|a}
--- sImpl = unsafePerformEffect $ mkMotionComponentImpl "s"
-
--- s ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_s) => ReactComponent { | attrs }
--- s = sImpl
-
--- sampImpl :: forall a. ReactComponent {|a}
--- sampImpl = unsafePerformEffect $ mkMotionComponentImpl "samp"
-
--- samp ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_samp) => ReactComponent { | attrs }
--- samp = sampImpl
-
--- scriptImpl :: forall a. ReactComponent {|a}
--- scriptImpl = unsafePerformEffect $ mkMotionComponentImpl "script"
-
--- script ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_script) => ReactComponent { | attrs }
--- script = scriptImpl
-
--- sectionImpl :: forall a. ReactComponent {|a}
--- sectionImpl = unsafePerformEffect $ mkMotionComponentImpl "section"
-
--- section ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_section) => ReactComponent { | attrs }
--- section = sectionImpl
-
--- selectImpl :: forall a. ReactComponent {|a}
--- selectImpl = unsafePerformEffect $ mkMotionComponentImpl "select"
-
--- select ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_select) => ReactComponent { | attrs }
--- select = selectImpl
-
--- smallImpl :: forall a. ReactComponent {|a}
--- smallImpl = unsafePerformEffect $ mkMotionComponentImpl "small"
-
--- small ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_small) => ReactComponent { | attrs }
--- small = smallImpl
-
--- sourceImpl :: forall a. ReactComponent {|a}
--- sourceImpl = unsafePerformEffect $ mkMotionComponentImpl "source"
-
--- source ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_source) => ReactComponent { | attrs }
--- source = sourceImpl
-
-foreign import spanImpl :: forall a. ReactComponent { | a }
-
-span ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_span) => ReactComponent { | attrs }
-span = spanImpl
-
--- strongImpl :: forall a. ReactComponent {|a}
--- strongImpl = unsafePerformEffect $ mkMotionComponentImpl "strong"
-
--- strong ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_strong) => ReactComponent { | attrs }
--- strong = strongImpl
-
--- styleImpl :: forall a. ReactComponent {|a}
--- styleImpl = unsafePerformEffect $ mkMotionComponentImpl "style"
-
--- style ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_style) => ReactComponent { | attrs }
--- style = styleImpl
-
--- subImpl :: forall a. ReactComponent {|a}
--- subImpl = unsafePerformEffect $ mkMotionComponentImpl "sub"
-
--- sub ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_sub) => ReactComponent { | attrs }
--- sub = subImpl
-
--- summaryImpl :: forall a. ReactComponent {|a}
--- summaryImpl = unsafePerformEffect $ mkMotionComponentImpl "summary"
-
--- summary ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_summary) => ReactComponent { | attrs }
--- summary = summaryImpl
-
--- supImpl :: forall a. ReactComponent {|a}
--- supImpl = unsafePerformEffect $ mkMotionComponentImpl "sup"
-
--- sup ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_sup) => ReactComponent { | attrs }
--- sup = supImpl
-
--- tableImpl :: forall a. ReactComponent {|a}
--- tableImpl = unsafePerformEffect $ mkMotionComponentImpl "table"
-
--- table ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_table) => ReactComponent { | attrs }
--- table = tableImpl
-
--- tbodyImpl :: forall a. ReactComponent {|a}
--- tbodyImpl = unsafePerformEffect $ mkMotionComponentImpl "tbody"
-
--- tbody ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tbody) => ReactComponent { | attrs }
--- tbody = tbodyImpl
-
--- tdImpl :: forall a. ReactComponent {|a}
--- tdImpl = unsafePerformEffect $ mkMotionComponentImpl "td"
-
--- td ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_td) => ReactComponent { | attrs }
--- td = tdImpl
-
--- textareaImpl :: forall a. ReactComponent {|a}
--- textareaImpl = unsafePerformEffect $ mkMotionComponentImpl "textarea"
-
--- textarea ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_textarea) => ReactComponent { | attrs }
--- textarea = textareaImpl
-
--- tfootImpl :: forall a. ReactComponent {|a}
--- tfootImpl = unsafePerformEffect $ mkMotionComponentImpl "tfoot"
-
--- tfoot ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tfoot) => ReactComponent { | attrs }
--- tfoot = tfootImpl
-
--- thImpl :: forall a. ReactComponent {|a}
--- thImpl = unsafePerformEffect $ mkMotionComponentImpl "th"
-
--- th ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_th) => ReactComponent { | attrs }
--- th = thImpl
-
--- theadImpl :: forall a. ReactComponent {|a}
--- theadImpl = unsafePerformEffect $ mkMotionComponentImpl "thead"
-
--- thead ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_thead) => ReactComponent { | attrs }
--- thead = theadImpl
-
--- timeImpl :: forall a. ReactComponent {|a}
--- timeImpl = unsafePerformEffect $ mkMotionComponentImpl "time"
-
--- time ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_time) => ReactComponent { | attrs }
--- time = timeImpl
-
--- titleImpl :: forall a. ReactComponent {|a}
--- titleImpl = unsafePerformEffect $ mkMotionComponentImpl "title"
-
--- title ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_title) => ReactComponent { | attrs }
--- title = titleImpl
-
-foreign import trImpl :: forall a. ReactComponent { | a }
-
-tr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tr) => ReactComponent { | attrs }
-tr = trImpl
-
--- tr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_tr) => ReactComponent { | attrs }
--- tr = trImpl
-
--- trackImpl :: forall a. ReactComponent {|a}
--- trackImpl = unsafePerformEffect $ mkMotionComponentImpl "track"
-
--- track ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_track) => ReactComponent { | attrs }
--- track = trackImpl
-
--- uImpl :: forall a. ReactComponent {|a}
--- uImpl = unsafePerformEffect $ mkMotionComponentImpl "u"
-
--- u ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_u) => ReactComponent { | attrs }
--- u = uImpl
-
--- ulImpl :: forall a. ReactComponent {|a}
--- ulImpl = unsafePerformEffect $ mkMotionComponentImpl "ul"
-
--- ul ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_ul) => ReactComponent { | attrs }
--- ul = ulImpl
-
--- varImpl :: forall a. ReactComponent {|a}
--- varImpl = unsafePerformEffect $ mkMotionComponentImpl "var"
-
--- var ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_var) => ReactComponent { | attrs }
--- var = varImpl
-
--- videoImpl :: forall a. ReactComponent {|a}
--- videoImpl = unsafePerformEffect $ mkMotionComponentImpl "video"
-
--- video ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_video) => ReactComponent { | attrs }
--- video = videoImpl
-
--- wbrImpl :: forall a. ReactComponent {|a}
--- wbrImpl = unsafePerformEffect $ mkMotionComponentImpl "wbr"
-
--- wbr ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_wbr) => ReactComponent { | attrs }
--- wbr = wbrImpl
-
--- -- No support in React.Basic.Hooks
--- -- webview :: forall attrs attrs_. Union attrs attrs_ (MotionProps + DOM.Props_webview) => ReactComponent { | attrs }
--- -- webview = unsafePerformEffect $ mkMotionComponentImpl "webview"
-
--- svgAnimateImpl :: forall a. ReactComponent {|a}
--- svgAnimateImpl = unsafePerformEffect $ mkMotionComponentImpl "animate"
-
--- svgAnimate ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_animate) => ReactComponent { | attrs }
--- svgAnimate = svgAnimateImpl
-
--- circleImpl :: forall a. ReactComponent {|a}
--- circleImpl = unsafePerformEffect $ mkMotionComponentImpl "circle"
-
--- circle ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_circle) => ReactComponent { | attrs }
--- circle = circleImpl
-
--- clipPathImpl :: forall a. ReactComponent {|a}
--- clipPathImpl = unsafePerformEffect $ mkMotionComponentImpl "clipPath"
-
--- clipPath ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_clipPath) => ReactComponent { | attrs }
--- clipPath = clipPathImpl
-
--- defsImpl :: forall a. ReactComponent {|a}
--- defsImpl = unsafePerformEffect $ mkMotionComponentImpl "defs"
-
--- defs ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_defs) => ReactComponent { | attrs }
--- defs = defsImpl
-
--- descImpl :: forall a. ReactComponent {|a}
--- descImpl = unsafePerformEffect $ mkMotionComponentImpl "desc"
-
--- desc ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_desc) => ReactComponent { | attrs }
--- desc = descImpl
-
--- ellipseImpl :: forall a. ReactComponent {|a}
--- ellipseImpl = unsafePerformEffect $ mkMotionComponentImpl "ellipse"
-
--- ellipse ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_ellipse) => ReactComponent { | attrs }
--- ellipse = ellipseImpl
-
--- feBlendImpl :: forall a. ReactComponent {|a}
--- feBlendImpl = unsafePerformEffect $ mkMotionComponentImpl "feBlend"
-
--- feBlend ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feBlend) => ReactComponent { | attrs }
--- feBlend = feBlendImpl
-
--- feColorMatrixImpl :: forall a. ReactComponent {|a}
--- feColorMatrixImpl = unsafePerformEffect $ mkMotionComponentImpl "feColorMatrix"
-
--- feColorMatrix ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feColorMatrix) => ReactComponent { | attrs }
--- feColorMatrix = feColorMatrixImpl
-
--- feComponentTransferImpl :: forall a. ReactComponent {|a}
--- feComponentTransferImpl = unsafePerformEffect $ mkMotionComponentImpl "feComponentTransfer"
-
--- feComponentTransfer ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feComponentTransfer) => ReactComponent { | attrs }
--- feComponentTransfer = feComponentTransferImpl
-
--- feCompositeImpl :: forall a. ReactComponent {|a}
--- feCompositeImpl = unsafePerformEffect $ mkMotionComponentImpl "feComposite"
-
--- feComposite ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feComposite) => ReactComponent { | attrs }
--- feComposite = feCompositeImpl
-
--- feConvolveMatrixImpl :: forall a. ReactComponent {|a}
--- feConvolveMatrixImpl = unsafePerformEffect $ mkMotionComponentImpl "feConvolveMatrix"
-
--- feConvolveMatrix ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feConvolveMatrix) => ReactComponent { | attrs }
--- feConvolveMatrix = feConvolveMatrixImpl
-
--- feDiffuseLightingImpl :: forall a. ReactComponent {|a}
--- feDiffuseLightingImpl = unsafePerformEffect $ mkMotionComponentImpl "feDiffuseLighting"
-
--- feDiffuseLighting ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feDiffuseLighting) => ReactComponent { | attrs }
--- feDiffuseLighting = feDiffuseLightingImpl
-
--- feDisplacementMapImpl :: forall a. ReactComponent {|a}
--- feDisplacementMapImpl = unsafePerformEffect $ mkMotionComponentImpl "feDisplacementMap"
-
--- feDisplacementMap ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feDisplacementMap) => ReactComponent { | attrs }
--- feDisplacementMap = feDisplacementMapImpl
-
--- feDistantLightImpl :: forall a. ReactComponent {|a}
--- feDistantLightImpl = unsafePerformEffect $ mkMotionComponentImpl "feDistantLight"
-
--- feDistantLight ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feDistantLight) => ReactComponent { | attrs }
--- feDistantLight = feDistantLightImpl
-
--- feDropShadowImpl :: forall a. ReactComponent {|a}
--- feDropShadowImpl = unsafePerformEffect $ mkMotionComponentImpl "feDropShadow"
-
--- feDropShadow ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feDropShadow) => ReactComponent { | attrs }
--- feDropShadow = feDropShadowImpl
-
--- feFloodImpl :: forall a. ReactComponent {|a}
--- feFloodImpl = unsafePerformEffect $ mkMotionComponentImpl "feFlood"
-
--- feFlood ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feFlood) => ReactComponent { | attrs }
--- feFlood = feFloodImpl
-
--- feFuncAImpl :: forall a. ReactComponent {|a}
--- feFuncAImpl = unsafePerformEffect $ mkMotionComponentImpl "feFuncA"
-
--- feFuncA ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feFuncA) => ReactComponent { | attrs }
--- feFuncA = feFuncAImpl
-
--- feFuncBImpl :: forall a. ReactComponent {|a}
--- feFuncBImpl = unsafePerformEffect $ mkMotionComponentImpl "feFuncB"
-
--- feFuncB ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feFuncB) => ReactComponent { | attrs }
--- feFuncB = feFuncBImpl
-
--- feFuncGImpl :: forall a. ReactComponent {|a}
--- feFuncGImpl = unsafePerformEffect $ mkMotionComponentImpl "feFuncG"
-
--- feFuncG ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feFuncG) => ReactComponent { | attrs }
--- feFuncG = feFuncGImpl
-
--- feFuncRImpl :: forall a. ReactComponent {|a}
--- feFuncRImpl = unsafePerformEffect $ mkMotionComponentImpl "feFuncR"
-
--- feFuncR ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feFuncR) => ReactComponent { | attrs }
--- feFuncR = feFuncRImpl
-
--- feGaussianBlurImpl :: forall a. ReactComponent {|a}
--- feGaussianBlurImpl = unsafePerformEffect $ mkMotionComponentImpl "feGaussianBlur"
-
--- feGaussianBlur ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feGaussianBlur) => ReactComponent { | attrs }
--- feGaussianBlur = feGaussianBlurImpl
-
--- feImageImpl :: forall a. ReactComponent {|a}
--- feImageImpl = unsafePerformEffect $ mkMotionComponentImpl "feImage"
-
--- feImage ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feImage) => ReactComponent { | attrs }
--- feImage = feImageImpl
-
--- feMergeImpl :: forall a. ReactComponent {|a}
--- feMergeImpl = unsafePerformEffect $ mkMotionComponentImpl "feMerge"
-
--- feMerge ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feMerge) => ReactComponent { | attrs }
--- feMerge = feMergeImpl
-
--- feMergeNodeImpl :: forall a. ReactComponent {|a}
--- feMergeNodeImpl = unsafePerformEffect $ mkMotionComponentImpl "feMergeNode"
-
--- feMergeNode ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feMergeNode) => ReactComponent { | attrs }
--- feMergeNode = feMergeNodeImpl
-
--- feMorphologyImpl :: forall a. ReactComponent {|a}
--- feMorphologyImpl = unsafePerformEffect $ mkMotionComponentImpl "feMorphology"
-
--- feMorphology ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feMorphology) => ReactComponent { | attrs }
--- feMorphology = feMorphologyImpl
-
--- feOffsetImpl :: forall a. ReactComponent {|a}
--- feOffsetImpl = unsafePerformEffect $ mkMotionComponentImpl "feOffset"
-
--- feOffset ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feOffset) => ReactComponent { | attrs }
--- feOffset = feOffsetImpl
-
--- fePointLightImpl :: forall a. ReactComponent {|a}
--- fePointLightImpl = unsafePerformEffect $ mkMotionComponentImpl "fePointLight"
-
--- fePointLight ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_fePointLight) => ReactComponent { | attrs }
--- fePointLight = fePointLightImpl
-
--- feSpecularLightingImpl :: forall a. ReactComponent {|a}
--- feSpecularLightingImpl = unsafePerformEffect $ mkMotionComponentImpl "feSpecularLighting"
-
--- feSpecularLighting ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feSpecularLighting) => ReactComponent { | attrs }
--- feSpecularLighting = feSpecularLightingImpl
-
--- feSpotLightImpl :: forall a. ReactComponent {|a}
--- feSpotLightImpl = unsafePerformEffect $ mkMotionComponentImpl "feSpotLight"
-
--- feSpotLight ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feSpotLight) => ReactComponent { | attrs }
--- feSpotLight = feSpotLightImpl
-
--- feTileImpl :: forall a. ReactComponent {|a}
--- feTileImpl = unsafePerformEffect $ mkMotionComponentImpl "feTile"
-
--- feTile ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feTile) => ReactComponent { | attrs }
--- feTile = feTileImpl
-
--- feTurbulenceImpl :: forall a. ReactComponent {|a}
--- feTurbulenceImpl = unsafePerformEffect $ mkMotionComponentImpl "feTurbulence"
-
--- feTurbulence ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_feTurbulence) => ReactComponent { | attrs }
--- feTurbulence = feTurbulenceImpl
-
--- filterImpl :: forall a. ReactComponent {|a}
--- filterImpl = unsafePerformEffect $ mkMotionComponentImpl "filter"
-
--- filter ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_filter) => ReactComponent { | attrs }
--- filter = filterImpl
-
--- foreignObjectImpl :: forall a. ReactComponent {|a}
--- foreignObjectImpl = unsafePerformEffect $ mkMotionComponentImpl "foreignObject"
-
--- foreignObject ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_foreignObject) => ReactComponent { | attrs }
--- foreignObject = foreignObjectImpl
-
-foreign import gImpl ∷ ∀ props. ReactComponent { | props }
-
-g ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_g) => ReactComponent { | attrs }
-g = gImpl
-
--- imageImpl :: forall a. ReactComponent {|a}
--- imageImpl = unsafePerformEffect $ mkMotionComponentImpl "image"
-
--- image ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_image) => ReactComponent { | attrs }
--- image = imageImpl
-
--- lineImpl :: forall a. ReactComponent {|a}
--- lineImpl = unsafePerformEffect $ mkMotionComponentImpl "line"
-
--- line ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_line) => ReactComponent { | attrs }
--- line = lineImpl
-
--- linearGradientImpl :: forall a. ReactComponent {|a}
--- linearGradientImpl = unsafePerformEffect $ mkMotionComponentImpl "linearGradient"
-
--- linearGradient ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_linearGradient) => ReactComponent { | attrs }
--- linearGradient = linearGradientImpl
-
--- markerImpl :: forall a. ReactComponent {|a}
--- markerImpl = unsafePerformEffect $ mkMotionComponentImpl "marker"
-
--- marker ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_marker) => ReactComponent { | attrs }
--- marker = markerImpl
-
--- maskImpl :: forall a. ReactComponent {|a}
--- maskImpl = unsafePerformEffect $ mkMotionComponentImpl "mask"
-
--- mask ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_mask) => ReactComponent { | attrs }
--- mask = maskImpl
-
--- metadataImpl :: forall a. ReactComponent {|a}
--- metadataImpl = unsafePerformEffect $ mkMotionComponentImpl "metadata"
-
--- metadata ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_metadata) => ReactComponent { | attrs }
--- metadata = metadataImpl
-
-foreign import pathImpl :: forall a. ReactComponent { | a }
-
-path ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SharedSVGProps SVG.Props_path) => ReactComponent { | attrs }
-path = pathImpl
-
--- patternImpl :: forall a. ReactComponent {|a}
--- patternImpl = unsafePerformEffect $ mkMotionComponentImpl "pattern"
-
--- pattern ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_pattern) => ReactComponent { | attrs }
--- pattern = patternImpl
-
--- polygonImpl :: forall a. ReactComponent {|a}
--- polygonImpl = unsafePerformEffect $ mkMotionComponentImpl "polygon"
-
--- polygon ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_polygon) => ReactComponent { | attrs }
--- polygon = polygonImpl
-
--- polylineImpl :: forall a. ReactComponent {|a}
--- polylineImpl = unsafePerformEffect $ mkMotionComponentImpl "polyline"
-
--- polyline ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_polyline) => ReactComponent { | attrs }
--- polyline = polylineImpl
-
--- radialGradientImpl :: forall a. ReactComponent {|a}
--- radialGradientImpl = unsafePerformEffect $ mkMotionComponentImpl "radialGradient"
-
--- radialGradient ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_radialGradient) => ReactComponent { | attrs }
--- radialGradient = radialGradientImpl
-
--- rectImpl :: forall a. ReactComponent {|a}
--- rectImpl = unsafePerformEffect $ mkMotionComponentImpl "rect"
-
--- rect ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_rect) => ReactComponent { | attrs }
--- rect = rectImpl
-
--- stopImpl :: forall a. ReactComponent {|a}
--- stopImpl = unsafePerformEffect $ mkMotionComponentImpl "stop"
-
--- stop ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_stop) => ReactComponent { | attrs }
--- stop = stopImpl
-
-foreign import svgImpl :: forall a. ReactComponent { | a }
-
-svg ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SharedSVGProps SVG.Props_svg) => ReactComponent { | attrs }
-svg = svgImpl
-
--- svgSwitchImpl :: forall a. ReactComponent {|a}
--- svgSwitchImpl = unsafePerformEffect $ mkMotionComponentImpl "switch"
-
--- svgSwitch ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_switch) => ReactComponent { | attrs }
--- svgSwitch = svgSwitchImpl
-
--- symbolImpl :: forall a. ReactComponent {|a}
--- symbolImpl = unsafePerformEffect $ mkMotionComponentImpl "symbol"
-
--- symbol ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_symbol) => ReactComponent { | attrs }
--- symbol = symbolImpl
-
--- textImpl :: forall a. ReactComponent {|a}
--- textImpl = unsafePerformEffect $ mkMotionComponentImpl "text"
-
--- text ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_text) => ReactComponent { | attrs }
--- text = textImpl
-
--- textPathImpl :: forall a. ReactComponent {|a}
--- textPathImpl = unsafePerformEffect $ mkMotionComponentImpl "textPath"
-
--- textPath ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_textPath) => ReactComponent { | attrs }
--- textPath = textPathImpl
-
--- tspanImpl :: forall a. ReactComponent {|a}
--- tspanImpl = unsafePerformEffect $ mkMotionComponentImpl "tspan"
-
--- tspan ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_tspan) => ReactComponent { | attrs }
--- tspan = tspanImpl
-
--- useImpl :: forall a. ReactComponent {|a}
--- useImpl = unsafePerformEffect $ mkMotionComponentImpl "use"
-
--- use ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_use) => ReactComponent { | attrs }
--- use = useImpl
-
--- viewImpl :: forall a. ReactComponent {|a}
--- viewImpl = unsafePerformEffect $ mkMotionComponentImpl "view"
-
--- view ∷ ∀ attrs attrs_. Union attrs attrs_ (MotionProps + SVG.Props_view) => ReactComponent { | attrs }
--- view = viewImpl
+use ∷ FFIComponent MotionBaseAttributes
+use = createMotionElement "use"

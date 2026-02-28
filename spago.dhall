@@ -26,7 +26,7 @@ to generate this file without the comments in this block.
   , "nullable"
   , "prelude"
   , "react-basic"
-  , "react-basic-dom"
+  , "yoga-react-dom"
   , "react-basic-hooks"
   , "record"
   , "tuples"
