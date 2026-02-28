@@ -540,35 +540,12 @@ reorderDemo = unsafeCoerce reorderDemo_
 reorderDemo_ ∷ Effect (Unit → JSX)
 reorderDemo_ = component "ReorderDemo" \_ -> React.do
   items /\ setItems <- React.useState' [ "Apples", "Bananas", "Cherries", "Dates", "Elderberries" ]
-  pure $ element M.reorderGroup
-    { axis: "y"
-    , values: unsafeToForeign <$> items
+  pure $ reorderList
+    { items
     , onReorder: mkEffectFn1 \newItems -> setItems (unsafeCoerce newItems)
-    , children: items # mapWithIndex \_ item ->
-        element M.reorderItem
-          { value: unsafeToForeign item
-          , children:
-              [ R.div
-                  { style: R.css
-                      { padding: "12px 16px"
-                      , marginBottom: "4px"
-                      , borderRadius: "8px"
-                      , background: "white"
-                      , border: "1px solid #e0e0e8"
-                      , cursor: "grab"
-                      , display: "flex"
-                      , alignItems: "center"
-                      , gap: "8px"
-                      , userSelect: "none"
-                      }
-                  , children:
-                      [ R.span { style: R.css { color: "#aaa" }, children: [ R.text "⠿" ] }
-                      , R.text item
-                      ]
-                  }
-              ]
-          }
     }
+
+foreign import reorderList ∷ ∀ r. r → JSX
 
 ------------------------------------------------------------------------
 -- 13. onAnimationCancel
