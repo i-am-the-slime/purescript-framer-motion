@@ -556,15 +556,37 @@ onAnimationCancelDemo = unsafeCoerce onAnimationCancelDemo_
 onAnimationCancelDemoSafe_ ∷ Effect (Unit → JSX)
 onAnimationCancelDemoSafe_ = component "OnAnimationCancelDemoSafe" \_ -> React.do
   x <- MV.useMotionValue 0.0
-  status /\ setStatus <- React.useState' "idle"
+  status /\ setStatus <- React.useState' "idle — click Animate to start"
+  animating /\ setAnimating <- React.useState' false
   Hook.useMotionValueEvent x "animationStart" \(_ ∷ Number) ->
-    setStatus "animating"
+    setStatus "animating… grab the box to cancel!"
   Hook.useMotionValueEvent x "animationComplete" \(_ ∷ Number) ->
     setStatus "complete"
   Hook.useMotionValueEvent x "animationCancel" \(_ ∷ Number) ->
     setStatus "cancelled!"
   pure $ R.div_
-    [ Motion.div
+    [ R.div
+        { style: R.css { display: "flex", gap: "12px", alignItems: "center", marginBottom: "12px" }
+        , children:
+            [ R.button
+                { onClick: mkEffectFn1 \_ -> do
+                    MV.set 0.0 x
+                    setAnimating true
+                    setStatus "starting…"
+                , style: R.css { padding: "8px 16px", borderRadius: "8px", border: "1px solid #ccc", cursor: "pointer" }
+                , children: [ R.text "Animate" ]
+                }
+            , R.button
+                { onClick: mkEffectFn1 \_ -> do
+                    MV.set 0.0 x
+                    setAnimating false
+                    setStatus "idle — click Animate to start"
+                , style: R.css { padding: "8px 16px", borderRadius: "8px", border: "1px solid #ccc", cursor: "pointer" }
+                , children: [ R.text "Reset" ]
+                }
+            ]
+        }
+    , Motion.div
         { style: Yoga.css
             { x
             , width: "80px"
@@ -574,12 +596,12 @@ onAnimationCancelDemoSafe_ = component "OnAnimationCancelDemoSafe" \_ -> React.d
             , cursor: "grab"
             }
         , drag: M.drag "x"
-        , animate: M.animate $ Yoga.css { x: 200.0 }
-        , transition: M.transition { duration: 3.0 }
+        , animate: if animating then M.animate $ Yoga.css { x: 300.0 } else M.animate $ Yoga.css {}
+        , transition: M.transition { duration: 4.0, ease: "linear" }
         }
         [ R.div
             { style: R.css { fontSize: "11px", padding: "8px", textAlign: "center", color: "#666" }
-            , children: [ R.text "drag to cancel" ]
+            , children: [ R.text (if animating then "grab me!" else "waiting") ]
             }
         ]
     , R.div
