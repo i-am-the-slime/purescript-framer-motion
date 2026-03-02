@@ -7,7 +7,7 @@ import Effect.Aff (launchAff_)
 import Effect.Class.Console (log)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (runSpec)
-import Test.MorphSpec as MorphSpec
+import Test.LayoutIdSpec as LayoutIdSpec
 import Test.SimpleSpec as SimpleSpec
 
 main :: Effect Unit
@@ -16,5 +16,5 @@ main = do
   launchAff_ do
     runSpec [ consoleReporter ] do
       SimpleSpec.spec
-      MorphSpec.spec
+      LayoutIdSpec.spec
     log "✅ All tests complete!"

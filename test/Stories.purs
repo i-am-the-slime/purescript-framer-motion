@@ -20,7 +20,6 @@ import React.Basic (JSX)
 import React.Basic.DOM as R
 import React.Basic.Hooks ((/\))
 import React.Basic.Hooks as React
-import Type.Proxy (Proxy(..))
 import Unsafe.Coerce (unsafeCoerce)
 import Yoga.React (component)
 import Yoga.React.DOM.Internal (css) as Yoga
@@ -48,7 +47,7 @@ morphBasicComponent = component "MorphBasic" \_ -> React.do
               ] <>
                 if i == selected then
                   [ Motion.div
-                      { layoutId: M.morph "underline"
+                      { layoutId: M.layoutId "underline"
                       , style: Yoga.css
                           { position: "absolute"
                           , bottom: "0"
@@ -77,7 +76,7 @@ morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
     , children:
             if expanded then
               [ Motion.div
-                  { layoutId: M.morph "card"
+                  { layoutId: M.layoutId "card"
                   , style: Yoga.css
                       { padding: "24px"
                       , borderRadius: "16px"
@@ -87,12 +86,12 @@ morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
                       }
                   }
                   [ Motion.div
-                      { layoutId: M.morph ("card" /\ (Proxy ∷ Proxy "title"))
+                      { layoutId: M.layoutId "card-title"
                       , style: Yoga.css { fontSize: "24px", fontWeight: "bold", marginBottom: "8px" }
                       }
                       [ R.text "Expanded" ]
                   , Motion.div
-                      { layoutId: M.morph ("card" /\ (Proxy ∷ Proxy "body"))
+                      { layoutId: M.layoutId "card-body"
                       , style: Yoga.css { fontSize: "14px", opacity: "0.8" }
                       }
                       [ R.text "Click to collapse. The title and body morph independently within the card." ]
@@ -100,7 +99,7 @@ morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
               ]
             else
               [ Motion.div
-                  { layoutId: M.morph "card"
+                  { layoutId: M.layoutId "card"
                   , style: Yoga.css
                       { padding: "12px 16px"
                       , borderRadius: "8px"
@@ -110,12 +109,12 @@ morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
                       }
                   }
                   [ Motion.div
-                      { layoutId: M.morph ("card" /\ (Proxy ∷ Proxy "title"))
+                      { layoutId: M.layoutId "card-title"
                       , style: Yoga.css { fontSize: "14px", fontWeight: "bold" }
                       }
                       [ R.text "Collapsed" ]
                   , Motion.div
-                      { layoutId: M.morph ("card" /\ (Proxy ∷ Proxy "body"))
+                      { layoutId: M.layoutId "card-body"
                       , style: Yoga.css { fontSize: "11px", opacity: "0.7" }
                       }
                       [ R.text "Click to expand" ]
