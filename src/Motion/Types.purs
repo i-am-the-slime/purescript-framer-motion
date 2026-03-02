@@ -323,11 +323,10 @@ onPan fn2 = cast (mkEffectFn2 fn2)
 customProp ∷ ∀ a. a -> Foreign
 customProp = unsafeToForeign
 
-type LayoutId =
-  String |+| Undefined
+newtype LayoutId = LayoutId String
 
-layoutId ∷ ∀ a. Castable a LayoutId => a -> LayoutId
-layoutId = cast
+layoutId ∷ String -> LayoutId
+layoutId = LayoutId
 
 animate ∷ ∀ a. Castable a Animate => a -> Animate
 animate = cast
