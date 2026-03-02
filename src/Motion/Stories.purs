@@ -18,11 +18,11 @@ import Untagged.Castable (cast)
 import Unsafe.Coerce (unsafeCoerce)
 import Yoga.React.DOM.Internal (css) as Yoga
 
-morphBasic ∷ JSX
-morphBasic = unsafeCoerce morphBasic_
+mkStory ∷ Effect (Unit → JSX) → Effect JSX
+mkStory = map (_ $ unit)
 
-morphBasic_ ∷ Effect (Unit → JSX)
-morphBasic_ = component "MorphBasic" \_ -> React.do
+morphBasic ∷ Effect JSX
+morphBasic = mkStory $ component "MorphBasic" \_ -> React.do
   selected /\ setSelected <- React.useState' 0
   pure $ M.layoutGroup { id: cast "morph-basic" }
     [ R.div
@@ -63,11 +63,8 @@ morphBasic_ = component "MorphBasic" \_ -> React.do
         }
     ]
 
-morphComposedKeys ∷ JSX
-morphComposedKeys = unsafeCoerce morphComposedKeys_
-
-morphComposedKeys_ ∷ Effect (Unit → JSX)
-morphComposedKeys_ = component "MorphComposedKeys" \_ -> React.do
+morphComposedKeys ∷ Effect JSX
+morphComposedKeys = mkStory $ component "MorphComposedKeys" \_ -> React.do
   expanded /\ setExpanded <- React.useState' false
   pure $ M.layoutGroup { id: cast "morph-composed" }
     [ R.div
@@ -113,11 +110,8 @@ morphComposedKeys_ = component "MorphComposedKeys" \_ -> React.do
         }
     ]
 
-dragAndSpring ∷ JSX
-dragAndSpring = unsafeCoerce dragAndSpring_
-
-dragAndSpring_ ∷ Effect (Unit → JSX)
-dragAndSpring_ = component "DragAndSpring" \_ -> React.do
+dragAndSpring ∷ Effect JSX
+dragAndSpring = mkStory $ component "DragAndSpring" \_ -> React.do
   x <- MV.useMotionValue 0.0
   xVelocity <- Hook.useVelocity x
   bg <- Hook.useTransformMap xVelocity \v ->
@@ -146,11 +140,8 @@ dragAndSpring_ = component "DragAndSpring" \_ -> React.do
         }
     ]
 
-spinningBox ∷ JSX
-spinningBox = unsafeCoerce spinningBox_
-
-spinningBox_ ∷ Effect (Unit → JSX)
-spinningBox_ = component "SpinningBox" \_ -> React.do
+spinningBox ∷ Effect JSX
+spinningBox = mkStory $ component "SpinningBox" \_ -> React.do
   time <- Hook.useTime
   rotate <- Hook.useTransformMap time \t -> t / 20.0
   pure $ Motion.div
@@ -164,11 +155,8 @@ spinningBox_ = component "SpinningBox" \_ -> React.do
     }
     ([] ∷ Array JSX)
 
-reorder ∷ JSX
-reorder = unsafeCoerce reorder_
-
-reorder_ ∷ Effect (Unit → JSX)
-reorder_ = component "ReorderStory" \_ -> React.do
+reorder ∷ Effect JSX
+reorder = mkStory $ component "ReorderStory" \_ -> React.do
   items /\ setItems <- React.useState' [ "Apples", "Bananas", "Cherries", "Dates", "Elderberries" ]
   pure $ M.reorderGroup
     { axis: "y"
@@ -197,11 +185,8 @@ reorder_ = component "ReorderStory" \_ -> React.do
               }
     )
 
-hoverAndTap ∷ JSX
-hoverAndTap = unsafeCoerce hoverAndTap_
-
-hoverAndTap_ ∷ Effect (Unit → JSX)
-hoverAndTap_ = component "HoverAndTap" \_ -> React.do
+hoverAndTap ∷ Effect JSX
+hoverAndTap = mkStory $ component "HoverAndTap" \_ -> React.do
   willChange <- Hook.useWillChange
   pure $ Motion.div
     { style: Yoga.css
