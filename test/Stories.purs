@@ -35,20 +35,18 @@ morphBasicComponent = component "MorphBasic" \_ -> React.do
   selected /\ setSelected <- React.useState' 0
   pure $ M.layoutGroup { id: cast "morph-basic" }
     [ R.div
-        { style: R.css { display: "flex", gap: "24px", alignItems: "flex-start" }
+        { style: R.css { display: "flex", gap: "8px", alignItems: "flex-start" }
         , children: ([ 0, 1, 2 ] ∷ Array Int) <#> \i ->
             R.div
               { key: show i
               , onClick: mkEffectFn1 \_ -> setSelected i
               , style: R.css
-                  { padding: "16px 24px"
-                  , borderRadius: "12px"
+                  { padding: "12px 24px"
                   , cursor: "pointer"
-                  , position: "relative"
-                  , background: if i == selected then "#f0f0ff" else "#f8f8fc"
-                  , border: "1px solid " <> if i == selected then "#667eea" else "#e0e0e8"
-                  , minWidth: "80px"
-                  , textAlign: "center"
+                  , display: "flex"
+                  , flexDirection: "column"
+                  , alignItems: "center"
+                  , gap: "8px"
                   }
               , children:
                   [ R.text ("Tab " <> show (i + 1))
@@ -56,13 +54,10 @@ morphBasicComponent = component "MorphBasic" \_ -> React.do
                     if i == selected then
                       [ M.morph "underline" $ Motion.div
                           { style: Yoga.css
-                              { position: "absolute"
-                              , bottom: "0"
-                              , left: "0"
-                              , right: "0"
-                              , height: "3px"
+                              { height: "3px"
+                              , width: "100%"
                               , background: "linear-gradient(90deg, #667eea, #764ba2)"
-                              , borderRadius: "0 0 12px 12px"
+                              , borderRadius: "2px"
                               }
                           }
                           ([] ∷ Array JSX)
