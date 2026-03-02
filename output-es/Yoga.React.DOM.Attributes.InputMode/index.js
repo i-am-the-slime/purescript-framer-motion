@@ -1,0 +1,13 @@
+import * as Data$dOrd from "../Data.Ord/index.js";
+const InputMode = x => x;
+const eqInputMode = {eq: x => y => x === y};
+const ordInputMode = {compare: x => y => Data$dOrd.ordString.compare(x)(y), Eq0: () => eqInputMode};
+const inputModeUrl = "url";
+const inputModeText = "text";
+const inputModeTel = "tel";
+const inputModeSearch = "search";
+const inputModeNumeric = "numeric";
+const inputModeNone = "none";
+const inputModeEmail = "email";
+const inputModeDecimal = "decimal";
+export {InputMode, eqInputMode, inputModeDecimal, inputModeEmail, inputModeNone, inputModeNumeric, inputModeSearch, inputModeTel, inputModeText, inputModeUrl, ordInputMode};

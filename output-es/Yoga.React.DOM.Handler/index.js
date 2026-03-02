@@ -1,0 +1,10 @@
+const onMouseOver = x => $0 => x($0)();
+const onMouseOut = x => $0 => x($0)();
+const onMouseMove = x => $0 => x($0)();
+const onMouseLeave = x => $0 => x($0)();
+const onMouseEnter = x => $0 => x($0)();
+const onMouseDown = x => $0 => x($0)();
+const onFocus = x => $0 => x($0)();
+const onClick = x => $0 => x($0)();
+const onBlur = x => $0 => x($0)();
+export {onBlur, onClick, onFocus, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver};

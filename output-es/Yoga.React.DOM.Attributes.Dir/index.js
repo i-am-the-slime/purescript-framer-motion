@@ -1,0 +1,11 @@
+import * as Data$dOrd from "../Data.Ord/index.js";
+const Dir = x => x;
+const eqDir = {eq: x => y => x === y};
+const ordDir = {compare: x => y => Data$dOrd.ordString.compare(x)(y), Eq0: () => eqDir};
+const dirUnset = "unset";
+const dirRightToLeft = "rtl";
+const dirLeftToRight = "ltr";
+const dirInitial = "initial";
+const dirInherit = "inherit";
+const dirAuto = "auto";
+export {Dir, dirAuto, dirInherit, dirInitial, dirLeftToRight, dirRightToLeft, dirUnset, eqDir, ordDir};

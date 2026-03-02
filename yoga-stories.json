@@ -1,0 +1,5 @@
+{
+  "outputDir": "./output",
+  "include": ["**.Stories"],
+  "exclude": []
+}
