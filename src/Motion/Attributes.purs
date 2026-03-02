@@ -1,8 +1,8 @@
-module Framer.Motion.Attributes where
+module Motion.Attributes where
 
 import Prelude
 
-import Framer.Motion.Types (Id, MotionPropsF)
+import Motion.Types (Id, MotionPropsF)
 import React.Basic.Events (EventHandler)
 import Effect.Uncurried (EffectFn1)
 import Type.Row (type (+))

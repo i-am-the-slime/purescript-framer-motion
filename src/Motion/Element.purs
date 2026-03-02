@@ -1,8 +1,8 @@
-module Framer.Motion.MotionComponent where
+module Motion.Element where
 
 import Effect (Effect)
-import Framer.Motion.Attributes (MotionBaseAttributes)
-import Framer.Motion.Types (MotionProps)
+import Motion.Attributes (MotionBaseAttributes)
+import Motion.Types (MotionProps)
 import React.Basic (JSX, ReactComponent)
 import Yoga.React.DOM.Internal (FFIComponent, FFIComponent_)
 

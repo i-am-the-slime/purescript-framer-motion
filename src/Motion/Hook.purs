@@ -1,4 +1,4 @@
-module Framer.Motion.Hook
+module Motion.Hook
   ( useViewportScroll
   , useAnimation
   , UseAnimation
@@ -48,9 +48,9 @@ import Data.TwoOrMore (TwoOrMore)
 import Data.TwoOrMore as TwoOrMore
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, EffectFn2, EffectFn3, EffectFn4, mkEffectFn1, runEffectFn1, runEffectFn2, runEffectFn3, runEffectFn4)
-import Framer.Motion.Types (AnimationControls, DragControls, WillChange, UseScrollOptions)
+import Motion.Types (AnimationControls, DragControls, WillChange, UseScrollOptions)
 import Literals.Undefined (Undefined, undefined)
-import MotionValue (MotionValue)
+import Motion.Value (MotionValue)
 import Prim.Row (class Union)
 import React.Basic.Hooks (Hook, Ref, unsafeHook)
 import Untagged.Castable (class Castable, cast)

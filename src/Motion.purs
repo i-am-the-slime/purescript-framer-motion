@@ -1,4 +1,4 @@
-module Framer.Motion
+module Motion
   ( motion
   , withMotion
   , animatePresence
@@ -7,25 +7,31 @@ module Framer.Motion
   , motionConfig
   , reorderGroup
   , reorderItem
-  , module Framer.Motion.Types
-  , module Framer.Motion.MotionComponent
-  , module Framer.Motion.Hook
+  , module Motion.Types
+  , module Motion.Element
+  , module Motion.Hook
   , startAnimation
   , startAnimationDynamic
   , startAnimationVariant
   , stopAnimation
+  , class MorphKey
+  , toMorphKey
+  , morph
   ) where
 
-import Framer.Motion.Types
-import Framer.Motion.Hook
+import Motion.Types
+import Motion.Hook
 import Control.Promise (Promise)
 import Control.Promise as Promise
+import Data.Symbol (class IsSymbol, reflectSymbol)
+import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Aff (Aff)
-import Framer.Motion.MotionComponent (a, a_, abbr, address, area, article, aside, audio, b, blockquote, br, button, button_, canvas, caption, cite, code, col, colgroup, custom, datalist, dd, del, details, dfn, dialog, div, div_, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, g, g_, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, kbd, label, legend, li, li_, line, linearGradient, main, mark, marker, mask, menu, meter, nav, ol, optgroup, option, output, p, path, path_, picture, polygon, polyline, pre, progress, q, radialGradient, rect, rp, rt, ruby, s, samp, section, select, small, source, span, span_, stop, strong, sub, summary, sup, svg, svg_, table, tbody, td, text, textPath, textarea, tfoot, th, thead, time, tr, tspan, u, ul, use, video, circle, clipPath, defs, ellipse, foreignObject, image)
-import Prelude (Unit, flip)
+import Motion.Element (a, a_, abbr, address, area, article, aside, audio, b, blockquote, br, button, button_, canvas, caption, cite, code, col, colgroup, custom, datalist, dd, del, details, dfn, dialog, div, div_, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, g, g_, h1, h2, h3, h4, h5, h6, header, hgroup, hr, i, iframe, img, input, ins, kbd, label, legend, li, li_, line, linearGradient, main, mark, marker, mask, menu, meter, nav, ol, optgroup, option, output, p, path, path_, picture, polygon, polyline, pre, progress, q, radialGradient, rect, rp, rt, ruby, s, samp, section, select, small, source, span, span_, stop, strong, sub, summary, sup, svg, svg_, table, tbody, td, text, textPath, textarea, tfoot, th, thead, time, tr, tspan, u, ul, use, video, circle, clipPath, defs, ellipse, foreignObject, image)
+import Prelude (Unit, flip, identity, show, (<>))
 import Prim.Row (class Nub, class Union)
 import React.Basic (JSX)
+import Type.Proxy (Proxy(..))
 import Yoga.React.DOM.Internal (CSS, class IsJSX)
 import Record (disjointUnion)
 import Untagged.Castable (class Castable, cast)
@@ -124,3 +130,24 @@ reorderItem
   => IsJSX kids
   => { | attrs } -> kids -> JSX
 reorderItem = reorderItemImpl
+
+-- MorphKey
+class MorphKey a where
+  toMorphKey ∷ a → String
+
+instance MorphKey String where
+  toMorphKey = identity
+
+instance MorphKey Int where
+  toMorphKey = show
+
+instance (MorphKey a, MorphKey b) => MorphKey (Tuple a b) where
+  toMorphKey (Tuple a b) = toMorphKey a <> "-" <> toMorphKey b
+
+instance (IsSymbol s) => MorphKey (Proxy s) where
+  toMorphKey _ = reflectSymbol (Proxy ∷ Proxy s)
+
+foreign import morphImpl ∷ String → JSX → JSX
+
+morph ∷ ∀ key. MorphKey key ⇒ key → JSX → JSX
+morph key jsx = morphImpl (toMorphKey key) jsx

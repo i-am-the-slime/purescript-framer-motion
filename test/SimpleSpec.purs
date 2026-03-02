@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Maybe (isJust, isNothing)
 import Effect.Class (liftEffect)
-import Framer.Motion.MotionComponent as Motion
+import Motion.Element as Motion
 import React.TestingLibrary (render)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)

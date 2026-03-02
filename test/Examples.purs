@@ -10,11 +10,11 @@ import Effect (Effect)
 import Effect.Class.Console as Console
 import Effect.Uncurried (mkEffectFn1)
 import Foreign (unsafeToForeign)
-import Framer.Motion as M
-import Framer.Motion.Hook as Hook
-import Framer.Motion.MotionComponent as Motion
-import Framer.Motion.Types as Types
-import MotionValue as MV
+import Motion as M
+import Motion.Hook as Hook
+import Motion.Element as Motion
+import Motion.Types as Types
+import Motion.Value as MV
 import React.Basic (JSX)
 import React.Basic.DOM as R
 import React.Basic.Hooks (component, element, (/\))

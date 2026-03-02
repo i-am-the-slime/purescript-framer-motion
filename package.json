@@ -1,26 +1,26 @@
 {
-  "name": "purescript-react-motion",
-  "version": "1.0.0",
+  "name": "purescript-motion",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "node -r ./test-setup.js -e \"require('./output/Test.Main/index.js').main()\"",
+    "test": "bun -r ./test-setup.js -e \"require('./output/Test.Main/index.js').main()\"",
     "test:build": "spago build --config test.dhall",
     "test:watch": "spago build --config test.dhall --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/i-am-the-slime/purescript-framer-motion.git"
+    "url": "git+https://github.com/i-am-the-slime/purescript-motion.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/i-am-the-slime/purescript-framer-motion/issues"
+    "url": "https://github.com/i-am-the-slime/purescript-motion/issues"
   },
-  "homepage": "https://github.com/i-am-the-slime/purescript-framer-motion#readme",
+  "homepage": "https://github.com/i-am-the-slime/purescript-motion#readme",
   "dependencies": {
     "motion": "^12.29.2",
     "react": "^18.2.0",

@@ -1,9 +1,9 @@
-module MotionValue where
+module Motion.Value where
 
 import Prelude
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, EffectFn3, runEffectFn1, runEffectFn3)
-import Framer.Motion.Types (AnimationPlaybackControls)
+import Motion.Types (AnimationPlaybackControls)
 import React.Basic.Hooks (Hook, unsafeHook)
 
 foreign import data MotionValue ∷ Type -> Type

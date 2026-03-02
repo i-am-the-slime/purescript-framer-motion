@@ -1,4 +1,4 @@
-module Framer.Motion.Types where
+module Motion.Types where
 
 import Prelude
 
@@ -105,9 +105,6 @@ type Variants =
 
 type LayoutTransition =
   Boolean |+| Undefined
-
--- type Drag =
---   Boolean |+| String |+| Undefined
 
 type DragMomentum =
   Boolean |+| Undefined
@@ -293,10 +290,10 @@ whileFocus = cast
 class EffectFnMaker fn effectFn | fn -> effectFn where
   toEffectFn ∷ fn -> effectFn
 
-instance callbackableEffectFn2 ∷ EffectFnMaker (a -> b -> Effect c) (EffectFn2 a b c) where
+instance EffectFnMaker (a -> b -> Effect c) (EffectFn2 a b c) where
   toEffectFn = mkEffectFn2
 
-instance callbackableEffectFn1 ∷ EffectFnMaker (a -> Effect b) (EffectFn1 a b) where
+instance EffectFnMaker (a -> Effect b) (EffectFn1 a b) where
   toEffectFn = mkEffectFn1
 
 callback ∷ ∀ a c f. Castable c a => EffectFnMaker f c => f -> a
@@ -367,7 +364,7 @@ layout = cast
 
 data MakeVariantLabel = MakeVariantLabel
 
-instance makeVariantLabels' ∷
+instance
   ( IsSymbol sym
   ) =>
   MappingWithIndex MakeVariantLabel (Proxy sym) a VariantLabel where

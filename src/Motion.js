@@ -16,3 +16,6 @@ export const layoutGroupImpl = mkComponent(LayoutGroup)
 export const motionConfigImpl = mkComponent(MotionConfig)
 export const reorderGroupImpl = mkComponent(Reorder.Group)
 export const reorderItemImpl = mkComponent(Reorder.Item)
+
+export const morphImpl = (layoutId) => (jsx) =>
+  React.cloneElement(jsx, { layoutId, layout: true })
