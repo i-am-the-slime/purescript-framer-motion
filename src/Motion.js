@@ -1,4 +1,4 @@
-import { AnimatePresence, LazyMotion, LayoutGroup, MotionConfig, Reorder } from "motion/react"
+import { AnimatePresence, LazyMotion, LayoutGroup, motion, MotionConfig, Reorder } from "motion/react"
 import React from "react"
 
 const mkComponent = C => props => children => {
@@ -18,4 +18,4 @@ export const reorderGroupImpl = mkComponent(Reorder.Group)
 export const reorderItemImpl = mkComponent(Reorder.Item)
 
 export const morphImpl = (layoutId) => (jsx) =>
-  React.cloneElement(jsx, { layoutId, layout: "position" })
+  React.createElement(motion.div, { layoutId, style: { display: "contents" } }, jsx)
