@@ -1,4 +1,12 @@
-module Test.Motion.Stories where
+module Test.Motion.Stories
+  ( morphBasic
+  , morphComposedKeys
+  , dragAndSpring
+  , spinningBox
+  , reorder
+  , hoverAndTap
+  )
+  where
 
 import Prelude
 
