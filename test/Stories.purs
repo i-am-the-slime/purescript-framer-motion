@@ -33,45 +33,38 @@ morphBasic = story "Morph — Tab Underline" morphBasicComponent {}
 morphBasicComponent ∷ {} → JSX
 morphBasicComponent = component "MorphBasic" \_ -> React.do
   selected /\ setSelected <- React.useState' 0
-  pure $ M.layoutGroup { id: cast "morph-basic" }
-    [ R.div
-        { style: R.css { display: "flex", gap: "24px", alignItems: "flex-start" }
-        , children: ([ 0, 1, 2 ] ∷ Array Int) <#> \i ->
-            R.div
-              { key: show i
-              , onClick: mkEffectFn1 \_ -> setSelected i
-              , style: R.css
-                  { padding: "16px 24px"
-                  , borderRadius: "12px"
-                  , cursor: "pointer"
-                  , position: "relative"
-                  , background: if i == selected then "#f0f0ff" else "#f8f8fc"
-                  , border: "1px solid " <> if i == selected then "#667eea" else "#e0e0e8"
-                  , minWidth: "80px"
-                  , textAlign: "center"
-                  }
-              , children:
-                  [ R.text ("Tab " <> show (i + 1))
-                  ] <>
-                    if i == selected then
-                      [ Motion.div
-                          { layoutId: M.morph "underline"
-                          , style: Yoga.css
-                              { position: "absolute"
-                              , bottom: "0"
-                              , left: "0"
-                              , right: "0"
-                              , height: "3px"
-                              , background: "linear-gradient(90deg, #667eea, #764ba2)"
-                              , borderRadius: "0 0 12px 12px"
-                              }
-                          }
-                          ([] ∷ Array JSX)
-                      ]
-                    else []
+  pure $ R.div
+    { style: R.css { display: "flex", gap: "4px" }
+    , children: ([ 0, 1, 2 ] ∷ Array Int) <#> \i ->
+        R.div
+          { key: show i
+          , onClick: mkEffectFn1 \_ -> setSelected i
+          , style: R.css
+              { padding: "12px 24px"
+              , cursor: "pointer"
+              , position: "relative"
               }
-        }
-    ]
+          , children:
+              [ R.text ("Tab " <> show (i + 1))
+              ] <>
+                if i == selected then
+                  [ Motion.div
+                      { layoutId: M.morph "underline"
+                      , style: Yoga.css
+                          { position: "absolute"
+                          , bottom: "0"
+                          , left: "0"
+                          , right: "0"
+                          , height: "3px"
+                          , background: "linear-gradient(90deg, #667eea, #764ba2)"
+                          , borderRadius: "2px"
+                          }
+                      }
+                      ([] ∷ Array JSX)
+                  ]
+                else []
+          }
+    }
 
 morphComposedKeys ∷ JSX
 morphComposedKeys = story "Morph — Composed Keys" morphComposedKeysComponent {}
