@@ -2,9 +2,9 @@ module Test.MorphSpec where
 
 import Prelude
 
-import Data.Tuple.Nested ((/\), type (/\))
+import Data.Tuple.Nested ((/\))
 import Effect.Class (liftEffect)
-import Motion (class MorphKey, toMorphKey, morph)
+import Motion (morph, toMorphKey)
 import Motion.Element as Motion
 import React.TestingLibrary (render)
 import Test.Spec (Spec, describe, it)
