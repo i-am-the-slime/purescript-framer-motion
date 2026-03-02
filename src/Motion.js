@@ -18,4 +18,4 @@ export const reorderGroupImpl = mkComponent(Reorder.Group)
 export const reorderItemImpl = mkComponent(Reorder.Item)
 
 export const morphImpl = (layoutId) => (jsx) =>
-  React.cloneElement(jsx, { layoutId, layout: true })
+  React.cloneElement(jsx, { layoutId })
