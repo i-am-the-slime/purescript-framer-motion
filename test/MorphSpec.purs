@@ -33,8 +33,8 @@ spec = do
       toMorphKey key `shouldEqual` "gallery-5-thumb"
 
   describe "morph" do
-    it "renders a morphed element" do
-      let jsx = morph "test-key" (Motion.div { "data-testid": "morphed" } "Hello")
+    it "renders an element with layoutId" do
+      let jsx = Motion.div { layoutId: morph "test-key", "data-testid": "morphed" } "Hello"
       result <- liftEffect $ render jsx
       _ <- result.findByTestId "morphed"
       pure unit

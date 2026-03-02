@@ -147,7 +147,5 @@ instance (MorphKey a, MorphKey b) => MorphKey (Tuple a b) where
 instance (IsSymbol s) => MorphKey (Proxy s) where
   toMorphKey _ = reflectSymbol (Proxy ∷ Proxy s)
 
-foreign import morphImpl ∷ String → JSX → JSX
-
-morph ∷ ∀ key. MorphKey key ⇒ key → JSX → JSX
-morph key jsx = morphImpl (toMorphKey key) jsx
+morph ∷ ∀ key. MorphKey key ⇒ key → LayoutId
+morph key = layoutId (toMorphKey key)
