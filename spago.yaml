@@ -67,4 +67,39 @@ workspace:
     yoga-react-dom: "2.0.0"
     yoga-tree: "1.0.0"
     yoga-stories:
-      path: /Users/mark/code/purescript-yoga-stories
+      git: https://github.com/rowtype-yoga/purescript-yoga-stories.git
+      ref: main
+      dependencies:
+        - aff
+        - arrays
+        - console
+        - control
+        - effect
+        - either
+        - exceptions
+        - foldable-traversable
+        - foreign
+        - foreign-object
+        - js-promise
+        - js-promise-aff
+        - maybe
+        - newtype
+        - node-buffer
+        - node-fs
+        - node-path
+        - nullable
+        - optparse
+        - prelude
+        - react-basic
+        - react-basic-dom
+        - react-basic-hooks
+        - record
+        - strings
+        - tuples
+        - web-dom
+        - web-events
+        - web-html
+        - yoga-fastify
+        - yoga-json
+        - yoga-react
+        - yoga-react-dom
