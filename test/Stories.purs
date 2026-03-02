@@ -21,7 +21,6 @@ import React.Basic.DOM as R
 import React.Basic.Hooks ((/\))
 import React.Basic.Hooks as React
 import Type.Proxy (Proxy(..))
-import Untagged.Castable (cast)
 import Unsafe.Coerce (unsafeCoerce)
 import Yoga.React (component)
 import Yoga.React.DOM.Internal (css) as Yoga
@@ -72,11 +71,10 @@ morphComposedKeys = story "Morph — Composed Keys" morphComposedKeysComponent {
 morphComposedKeysComponent ∷ {} → JSX
 morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
   expanded /\ setExpanded <- React.useState' false
-  pure $ M.layoutGroup { id: cast "morph-composed" }
-    [ R.div
-        { onClick: mkEffectFn1 \_ -> setExpanded (not expanded)
-        , style: R.css { cursor: "pointer", userSelect: "none" }
-        , children:
+  pure $ R.div
+    { onClick: mkEffectFn1 \_ -> setExpanded (not expanded)
+    , style: R.css { cursor: "pointer", userSelect: "none" }
+    , children:
             if expanded then
               [ Motion.div
                   { layoutId: M.morph "card"
@@ -123,8 +121,7 @@ morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
                       [ R.text "Click to expand" ]
                   ]
               ]
-        }
-    ]
+    }
 
 dragAndSpring ∷ JSX
 dragAndSpring = story "Drag with Velocity Color" dragAndSpringComponent {}
