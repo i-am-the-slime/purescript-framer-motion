@@ -1,8 +1,7 @@
-module Motion.Stories where
+module Test.Motion.Stories where
 
 import Prelude
 
-import Effect (Effect)
 import Effect.Uncurried (mkEffectFn1)
 import Foreign (unsafeToForeign)
 import Motion as M
@@ -11,18 +10,20 @@ import Motion.Hook as Hook
 import Motion.Value as MV
 import React.Basic (JSX)
 import React.Basic.DOM as R
-import React.Basic.Hooks (component, (/\))
+import React.Basic.Hooks ((/\))
 import React.Basic.Hooks as React
 import Type.Proxy (Proxy(..))
 import Untagged.Castable (cast)
 import Unsafe.Coerce (unsafeCoerce)
+import Yoga.React (component)
 import Yoga.React.DOM.Internal (css) as Yoga
+import YogaStories.Story (story)
 
-mkStory ∷ Effect (Unit → JSX) → Effect JSX
-mkStory = map (_ $ unit)
+morphBasic ∷ JSX
+morphBasic = story "Morph — Tab Underline" morphBasicComponent {}
 
-morphBasic ∷ Effect JSX
-morphBasic = mkStory $ component "MorphBasic" \_ -> React.do
+morphBasicComponent ∷ {} → JSX
+morphBasicComponent = component "MorphBasic" \_ -> React.do
   selected /\ setSelected <- React.useState' 0
   pure $ M.layoutGroup { id: cast "morph-basic" }
     [ R.div
@@ -63,8 +64,11 @@ morphBasic = mkStory $ component "MorphBasic" \_ -> React.do
         }
     ]
 
-morphComposedKeys ∷ Effect JSX
-morphComposedKeys = mkStory $ component "MorphComposedKeys" \_ -> React.do
+morphComposedKeys ∷ JSX
+morphComposedKeys = story "Morph — Composed Keys" morphComposedKeysComponent {}
+
+morphComposedKeysComponent ∷ {} → JSX
+morphComposedKeysComponent = component "MorphComposedKeys" \_ -> React.do
   expanded /\ setExpanded <- React.useState' false
   pure $ M.layoutGroup { id: cast "morph-composed" }
     [ R.div
@@ -110,8 +114,11 @@ morphComposedKeys = mkStory $ component "MorphComposedKeys" \_ -> React.do
         }
     ]
 
-dragAndSpring ∷ Effect JSX
-dragAndSpring = mkStory $ component "DragAndSpring" \_ -> React.do
+dragAndSpring ∷ JSX
+dragAndSpring = story "Drag with Velocity Color" dragAndSpringComponent {}
+
+dragAndSpringComponent ∷ {} → JSX
+dragAndSpringComponent = component "DragAndSpring" \_ -> React.do
   x <- MV.useMotionValue 0.0
   xVelocity <- Hook.useVelocity x
   bg <- Hook.useTransformMap xVelocity \v ->
@@ -140,8 +147,11 @@ dragAndSpring = mkStory $ component "DragAndSpring" \_ -> React.do
         }
     ]
 
-spinningBox ∷ Effect JSX
-spinningBox = mkStory $ component "SpinningBox" \_ -> React.do
+spinningBox ∷ JSX
+spinningBox = story "useTime — Spinning Box" spinningBoxComponent {}
+
+spinningBoxComponent ∷ {} → JSX
+spinningBoxComponent = component "SpinningBox" \_ -> React.do
   time <- Hook.useTime
   rotate <- Hook.useTransformMap time \t -> t / 20.0
   pure $ Motion.div
@@ -155,8 +165,11 @@ spinningBox = mkStory $ component "SpinningBox" \_ -> React.do
     }
     ([] ∷ Array JSX)
 
-reorder ∷ Effect JSX
-reorder = mkStory $ component "ReorderStory" \_ -> React.do
+reorder ∷ JSX
+reorder = story "Drag to Reorder" reorderComponent {}
+
+reorderComponent ∷ {} → JSX
+reorderComponent = component "ReorderStory" \_ -> React.do
   items /\ setItems <- React.useState' [ "Apples", "Bananas", "Cherries", "Dates", "Elderberries" ]
   pure $ M.reorderGroup
     { axis: "y"
@@ -185,8 +198,11 @@ reorder = mkStory $ component "ReorderStory" \_ -> React.do
               }
     )
 
-hoverAndTap ∷ Effect JSX
-hoverAndTap = mkStory $ component "HoverAndTap" \_ -> React.do
+hoverAndTap ∷ JSX
+hoverAndTap = story "Hover & Tap Spring" hoverAndTapComponent {}
+
+hoverAndTapComponent ∷ {} → JSX
+hoverAndTapComponent = component "HoverAndTap" \_ -> React.do
   willChange <- Hook.useWillChange
   pure $ Motion.div
     { style: Yoga.css

@@ -36,6 +36,8 @@ package:
       - spec
       - react-basic-dom
       - react-testing-library
+      - yoga-stories
+      - yoga-react
 workspace:
   packageSet:
     registry: 51.2.0
@@ -57,4 +59,12 @@ workspace:
         - react-basic-dom
         - react-basic-hooks
         - web-html
+    yoga-fastify: "0.3.0"
+    yoga-http-api: "0.1.6"
+    yoga-json: "5.2.0"
+    yoga-options: "0.1.0"
+    yoga-react: "1.0.1"
     yoga-react-dom: "2.0.0"
+    yoga-tree: "1.0.0"
+    yoga-stories:
+      path: /Users/mark/code/purescript-yoga-stories
